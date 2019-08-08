@@ -3,11 +3,11 @@ import setuptools
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
-import sys; sys.path.insert(0, '../'); import http_stream_xml
+import sys; sys.path.insert(0, '../'); import httpstreamxml
 
 setuptools.setup(
-    name='httpstream',
-    version=http_stream_xml.version(),
+    name='http-stream-xml',
+    version=httpstreamxml.version(),
     author="Andrey Sorokin",
     author_email="filbert@ya.ru",
     description="Parse XML in HTTP response on the fly, by chunks",
