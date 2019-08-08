@@ -1,0 +1,3 @@
+include http_stream_xml/LICENSE.txt
+global-exclude __init__.py
+
