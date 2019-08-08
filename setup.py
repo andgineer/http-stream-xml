@@ -6,7 +6,7 @@ with open("README.rst", "r") as fh:
 import sys; sys.path.insert(0, '../'); import http_stream_xml
 
 setuptools.setup(
-    name='http-stream-xml',
+    name='httpstream',
     version=http_stream_xml.version(),
     author="Andrey Sorokin",
     author_email="filbert@ya.ru",
