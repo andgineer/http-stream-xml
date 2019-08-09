@@ -1,3 +1,9 @@
+"""
+Illustrates usage of streamed XML (partial) parsing.
+
+Gets gene's info from NCBI entrez API (PubMed)
+https://www.ncbi.nlm.nih.gov/
+"""
 import requests
 from httpstreamxml.xml_stream import XmlStreamExtractor
 

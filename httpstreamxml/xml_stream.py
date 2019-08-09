@@ -1,3 +1,7 @@
+"""
+Stream XML tags extractor.
+Do not need to parse all a XML document if you only need tags from beginning of it.
+"""
 import xml.sax
 
 
@@ -6,7 +10,7 @@ class XmlStreamExtractor:
     Extract given tags from XML streamed to it by chunks (in method feed).
     Raise StopIteration when all tag are found.
 
-    Found tags are available in dict tags
+    Found tags would be available in dict tags
     """
     def __init__(self, tags_to_collect):
         self.stream_handler = StreamHandler(tags_to_collect)
@@ -35,10 +39,13 @@ class StreamHandler(xml.sax.handler.ContentHandler):
             self.tag_started = name
             self.tags[name] = []
 
+    def extraction_completed(self):
+        return len(self.tags) == len(self.tags_to_collect)
+
     def endElement(self, name):
         if name in self.tags_to_collect:
             self.tag_started = None
-            if len(self.tags) == len(self.tags_to_collect):
+            if self.extraction_completed():
                 raise StopIteration
 
     def characters(self, content):
