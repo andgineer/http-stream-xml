@@ -8,6 +8,9 @@ Parse XML in HTTP response on the fly, by chunks.
 It could be `HTTP protocol chunks <https://en.wikipedia.org/wiki/Chunked_transfer_encoding>`_
 Or just partial download of big HTTP response.
 
+
+I use it to work with [NCBI (PubMed) Entrez API](https://www.ncbi.nlm.nih.gov/).
+
 Installation
 ------------
 
