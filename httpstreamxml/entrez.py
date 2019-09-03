@@ -206,4 +206,5 @@ if __name__ == '__main__':
         if not gene:
             print(f'!!! Fail to get gene details for "{gene_name}"')
         else:
-            print(f'Got gene detailes for "{gene_name}"')
+            print(f'\nGot gene detailes for "{gene_name}"')
+            print(genes[gene_name][GeneFields.description])

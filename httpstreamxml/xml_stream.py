@@ -18,6 +18,12 @@ class XmlStreamExtractor:
         self.parser.setContentHandler(self.stream_handler)
 
     def feed(self, chunk):
+        """
+        Feed next part of XML into the parser.
+
+        :param chunk: XML document part
+        :return: None
+        """
         self.parser.feed(chunk)
 
     @property
