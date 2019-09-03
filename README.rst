@@ -9,7 +9,7 @@ It could be `HTTP protocol chunks <https://en.wikipedia.org/wiki/Chunked_transfe
 Or just partial download of big HTTP response.
 
 
-I use it to work with [NCBI (PubMed) Entrez API](https://www.ncbi.nlm.nih.gov/).
+I use it to work with `NCBI (PubMed) Entrez API <https://www.ncbi.nlm.nih.gov/>`_.
 
 Installation
 ------------
