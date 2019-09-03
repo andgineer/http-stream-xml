@@ -25,7 +25,7 @@ Installation
 Usage sample
 ------------
 
-Receives data from [NCBI](https://www.ncbi.nlm.nih.gov/) PubMed biomedical articles corpus
+Receives data from `NCBI <https://www.ncbi.nlm.nih.gov/>`_ PubMed biomedical articles corpus
 with Entrez API.
 
 The code downloads only small part of Entrez response, just to extract some summary data.
