@@ -22,8 +22,8 @@ Documentation
 -------------
 `Documentation <https://http-stream-xml.sorokin.engineer/en/latest/>`_
 
-.. |build_status| image:: https://travis-ci.org/angineer/http-stream-xml.png
-    :target: https://travis-ci.org/andgineer/http-stream-xml
+.. |build_status| image:: https://github.com/andgineer/redis-redirect//workflows/ci/badge.svg
+    :target: (https://github.com/andgineer/redis-redirect//actions
     :alt: Latest release
 
 .. |pypi_version| image:: https://img.shields.io/pypi/v/http-stream-xml.svg?style=flat-square
