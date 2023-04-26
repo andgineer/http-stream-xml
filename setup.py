@@ -3,14 +3,19 @@ import setuptools
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
-import sys; sys.path.insert(0, '../');
-from src import httpstreamxml
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
+
+with open("requirements.test.txt") as f:
+    tests_requirements = f.read().splitlines()
+
+from src.httpstreamxml import version
 
 setuptools.setup(
     name='http-stream-xml',
-    version=httpstreamxml.version(),
+    version=version.VERSION,
     author="Andrey Sorokin",
-    author_email="filbert@ya.ru",
+    author_email="andrey@sorokin.engineer",
     description="Parse XML in HTTP response on the fly, by chunks",
     long_description=long_description,
     long_description_content_type="text/x-rst",
