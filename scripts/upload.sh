@@ -4,4 +4,4 @@
 rm -rf build/*
 rm -rf dist/*
 ./build.sh
-python3 -m twine upload --verbose dist/*
+python -m twine upload --verbose dist/*

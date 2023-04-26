@@ -2,4 +2,4 @@
 #
 # Uninstall bombard package to debug installation
 #
-python3.6 -m pip uninstall http-stream-xml
+python -m pip uninstall http-stream-xml
