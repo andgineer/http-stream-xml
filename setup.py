@@ -3,7 +3,8 @@ import setuptools
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
-import sys; sys.path.insert(0, '../'); import httpstreamxml
+import sys; sys.path.insert(0, '../');
+from src import httpstreamxml
 
 setuptools.setup(
     name='http-stream-xml',

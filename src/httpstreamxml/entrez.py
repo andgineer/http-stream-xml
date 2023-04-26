@@ -16,7 +16,7 @@ On other hand, all methods in the class search for gene name case-sensitive.
 Caches results inside the class instance.
 """
 import requests
-from httpstreamxml.xml_stream import XmlStreamExtractor
+from src.httpstreamxml.xml_stream import XmlStreamExtractor
 import logging
 from time import time
 import urllib3
