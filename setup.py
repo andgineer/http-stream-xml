@@ -15,7 +15,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/x-rst",
     url="https://http-stream-xml.readthedocs.io/en/latest/",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(where="src"),
     include_package_data=True,
     keywords='http stream xml chunked',
     classifiers=[
