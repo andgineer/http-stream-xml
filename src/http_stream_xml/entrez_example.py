@@ -5,7 +5,7 @@ Gets gene's info from NCBI entrez API (PubMed)
 https://www.ncbi.nlm.nih.gov/
 """
 import requests
-from src.httpstreamxml.xml_stream import XmlStreamExtractor
+from src.http_stream_xml.xml_stream import XmlStreamExtractor
 
 
 extractor = XmlStreamExtractor(['Gene-ref_desc', 'Entrezgene_summary', 'Gene-ref_syn'])

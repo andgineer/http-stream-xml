@@ -1,3 +1,7 @@
+import codecs
+import os
+import os.path
+
 import setuptools
 
 with open("README.rst", "r") as fh:
@@ -9,23 +13,47 @@ with open("requirements.txt") as f:
 with open("requirements.test.txt") as f:
     tests_requirements = f.read().splitlines()
 
-from src.httpstreamxml import version
+
+# Solution from https://packaging.python.org/guides/single-sourcing-package-version/
+def read(rel_path: str) -> str:
+    """Read file."""
+    here = os.path.abspath(os.path.dirname(__file__))
+    with codecs.open(os.path.join(here, rel_path), "r") as fp:
+        return fp.read()
+
+
+def get_version(rel_path: str) -> str:
+    """Parse version from file content."""
+    for line in read(rel_path).splitlines():
+        if line.startswith("VERSION"):
+            delim = '"' if '"' in line else "'"
+            return line.split(delim)[1]
+    raise RuntimeError("Unable to find version string.")
+
 
 setuptools.setup(
-    name='http-stream-xml',
-    version=version.VERSION,
+    name="http-stream-xml",
+    version=get_version("src/http_stream_xml/version.py"),
     author="Andrey Sorokin",
     author_email="andrey@sorokin.engineer",
-    description="Parse XML in HTTP response on the fly, by chunks",
+    description=("Parse XML in HTTP response on the fly, by chunks."),
+    entry_points={
+        "console_scripts": [
+            "garmin-daily=garmin_daily.google_sheet:main",
+        ],
+    },
     long_description=long_description,
     long_description_content_type="text/x-rst",
     url="https://http-stream-xml.readthedocs.io/en/latest/",
+    package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
-    include_package_data=True,
-    keywords='http stream xml chunked',
+    install_requires=requirements,
+    tests_require=tests_requirements,
+    python_requires=">=3.9",
+    keywords="http stream xml chunked",
     classifiers=[
-     "Programming Language :: Python :: 3",
-     "License :: OSI Approved :: MIT License",
-     "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
     ],
- )
+)

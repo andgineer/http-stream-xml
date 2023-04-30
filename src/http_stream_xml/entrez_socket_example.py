@@ -1,5 +1,5 @@
-from src.httpstreamxml.socket_stream import SocketStream
-from src.httpstreamxml.xml_stream import XmlStreamExtractor
+from src.http_stream_xml.socket_stream import SocketStream
+from src.http_stream_xml.xml_stream import XmlStreamExtractor
 
 
 stream = SocketStream(
