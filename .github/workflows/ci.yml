@@ -33,4 +33,5 @@ jobs:
       run: |
         coverage run -m unittest discover --start-directory tests --verbose
     - name: Upload Coverage to Codecov
+      if: ${{ matrix.python-version == 3.11 && matrix.platform == 'ubuntu-latest' }}
       uses: codecov/codecov-action@v2
