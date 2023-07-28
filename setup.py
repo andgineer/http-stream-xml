@@ -10,7 +10,7 @@ with open("README.rst", "r") as fh:
 with open("requirements.txt") as f:
     requirements = f.read().splitlines()
 
-with open("requirements.test.txt") as f:
+with open("requirements.dev.txt") as f:
     tests_requirements = f.read().splitlines()
 
 
