@@ -1,7 +1,7 @@
 http-stream-xml
 ===============
 
-|made_with_python| |build_status| |pypi_version| |pypi_license| |readthedocs|
+|made_with_python| |build_status| |coverage| |pypi_version| |pypi_license| |readthedocs|
 
 Parse XML in HTTP response on the fly, by chunks.
 
@@ -23,7 +23,7 @@ Documentation
 `Documentation <https://http-stream-xml.sorokin.engineer/en/latest/>`_
 
 .. |build_status| image:: https://github.com/andgineer/redis-redirect//workflows/ci/badge.svg
-    :target: (https://github.com/andgineer/redis-redirect//actions
+    :target: https://github.com/andgineer/redis-redirect//actions
     :alt: Latest release
 
 .. |pypi_version| image:: https://img.shields.io/pypi/v/http-stream-xml.svg?style=flat-square
@@ -48,3 +48,8 @@ codecov
 .. image:: https://codecov.io/gh/andgineer/http-stream-xml/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/andgineer/http-stream-xml
     :alt: Code coverage
+
+.. |coverage| image:: https://raw.githubusercontent.com/andgineer/http-stream-xml/python-coverage-comment-action-data/badge.svg
+    :target: https://htmlpreview.github.io/?https://github.com/andgineer/http-stream-xml/blob/python-coverage-comment-action-data/htmlcov/index.html
+    :alt: Coverage report
+
