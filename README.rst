@@ -41,3 +41,10 @@ Documentation
 .. |made_with_python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
     :target: https://www.python.org/
     :alt: Made with Python
+
+codecov
+-------
+
+.. image:: https://codecov.io/gh/andgineer/http-stream-xml/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/andgineer/http-stream-xml
+    :alt: Code coverage
