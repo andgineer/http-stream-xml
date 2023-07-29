@@ -43,7 +43,7 @@ Documentation
     :alt: Made with Python
 
 .. |codecov| image:: https://codecov.io/gh/andgineer/http-stream-xml/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/andgineer/http-stream-xml
+    :target: https://app.codecov.io/gh/andgineer/http-stream-xml/tree/master/src%2Fhttp_stream_xml
     :alt: Code coverage
 
 .. |coverage| image:: https://raw.githubusercontent.com/andgineer/http-stream-xml/python-coverage-comment-action-data/badge.svg

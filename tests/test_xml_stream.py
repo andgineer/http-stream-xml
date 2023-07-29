@@ -50,3 +50,91 @@ def test_no_tags_found():
             extractor.feed(chunk)
     expected_tags = {}
     assert extractor.tags == expected_tags
+
+
+def test_empty_xml():
+    xml_data = ""
+
+    tags_to_collect = {"name", "age"}
+    extractor = XmlStreamExtractor(tags_to_collect)
+
+    with StringIO(xml_data) as f:
+        while chunk := f.read(1024):
+            extractor.feed(chunk)
+    expected_tags = {}
+    assert extractor.tags == expected_tags
+
+
+def test_no_closing_tags():
+    xml_data = """
+    <root>
+        <name>John Doe
+        <age>30
+    </root>
+    """
+
+    tags_to_collect = {"name", "age"}
+    extractor = XmlStreamExtractor(tags_to_collect)
+
+    with pytest.raises(SAXParseException):
+        with StringIO(xml_data) as f:
+            while chunk := f.read(1024):
+                extractor.feed(chunk)
+
+
+def test_nested_tags():
+    xml_data = """
+    <root>
+        <person>
+            <name>John Doe</name>
+            <age>30</age>
+        </person>
+    </root>
+    """
+
+    tags_to_collect = {"name", "age"}
+    extractor = XmlStreamExtractor(tags_to_collect)
+
+    with StringIO(xml_data) as f:
+        while chunk := f.read(1024):
+            extractor.feed(chunk)
+    expected_tags = {"name": "John Doe", "age": "30"}
+    assert extractor.tags == expected_tags
+
+
+def test_tags_with_attributes():
+    xml_data = """
+    <root>
+        <name id="1">John Doe</name>
+        <age id="2">30</age>
+    </root>
+    """
+
+    tags_to_collect = {"name", "age"}
+    extractor = XmlStreamExtractor(tags_to_collect)
+
+    with StringIO(xml_data) as f:
+        while chunk := f.read(1024):
+            extractor.feed(chunk)
+    expected_tags = {"name": "John Doe", "age": "30"}
+    assert extractor.tags == expected_tags
+
+
+def test_repeated_tags():
+    xml_data = """
+    <root>
+        <name>John Doe</name>
+        <age>30</age>
+        <name>Jane Doe</name>
+        <age>28</age>
+    </root>
+    """
+
+    tags_to_collect = {"name", "age"}
+    extractor = XmlStreamExtractor(tags_to_collect)
+
+    with StringIO(xml_data) as f:
+        while chunk := f.read(1024):
+            extractor.feed(chunk)
+    expected_tags = {"name": "John Doe", "age": "30"}
+    assert extractor.tags == expected_tags
