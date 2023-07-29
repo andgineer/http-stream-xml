@@ -1,7 +1,7 @@
 http-stream-xml
 ===============
 
-|made_with_python| |build_status| |coverage| |pypi_version| |pypi_license| |readthedocs|
+|made_with_python| |build_status| |coverage| |codecov| |pypi_version| |pypi_license| |readthedocs|
 
 Parse XML in HTTP response on the fly, by chunks.
 
@@ -42,10 +42,7 @@ Documentation
     :target: https://www.python.org/
     :alt: Made with Python
 
-codecov
--------
-
-.. image:: https://codecov.io/gh/andgineer/http-stream-xml/branch/master/graph/badge.svg
+.. |codecov| image:: https://codecov.io/gh/andgineer/http-stream-xml/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/andgineer/http-stream-xml
     :alt: Code coverage
 

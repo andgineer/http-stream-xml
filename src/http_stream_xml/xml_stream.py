@@ -2,7 +2,9 @@
 Stream XML tags extractor.
 Do not need to parse all a XML document if you only need tags from beginning of it.
 """
+import contextlib
 import xml.sax
+from xml.sax.xmlreader import XMLReader
 
 
 class XmlStreamExtractor:
@@ -14,7 +16,7 @@ class XmlStreamExtractor:
     """
     def __init__(self, tags_to_collect):
         self.stream_handler = StreamHandler(tags_to_collect)
-        self.parser = xml.sax.make_parser()
+        self.parser : XMLReader = xml.sax.make_parser()
         self.parser.setContentHandler(self.stream_handler)
 
     def feed(self, chunk):
@@ -24,7 +26,8 @@ class XmlStreamExtractor:
         :param chunk: XML document part
         :return: None
         """
-        self.parser.feed(chunk)
+        with contextlib.suppress(StopIteration):
+            self.parser.feed(chunk)
 
     @property
     def tags(self):
