@@ -1,0 +1,1 @@
+"""Stream XML tags extractor."""

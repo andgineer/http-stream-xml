@@ -10,7 +10,10 @@ BEGIN_OF_BODY = "\r\n\r\n"
 
 
 class SocketStream:
+    """Simple socket stream reader."""
+
     def __init__(self, host, url, ssl=True, port=443):
+        """Init."""
         self.host = host
         self.url = url
         self.agent = "For the lulz.."
@@ -21,6 +24,7 @@ class SocketStream:
         self.fetched_bytes = 0
 
     def get_socket(self):
+        """Get socket object."""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         if self.ssl:
             return ssl.wrap_socket(sock, cert_reqs=ssl.CERT_NONE)
@@ -29,16 +33,20 @@ class SocketStream:
 
     @property
     def header(self):
+        """Get HTTP header."""
         return HEADER.format(host=self.host, url=self.url, agent=self.agent).encode()
 
     def connect(self):
+        """Connect to host and send header."""
         self.socket.connect((self.host, self.port))
         self.socket.send(self.header + END_OF_REQUEST)
 
     def close(self):
+        """Close socket."""
         self.socket.close()
 
     def read(self, bufsize=1024):
+        """Read from socket."""
         buf = self.socket.recv(bufsize)
         if not buf:
             raise BufferError
@@ -46,9 +54,11 @@ class SocketStream:
         return buf.decode()
 
     def is_chunk_head_line(self, line):
+        """Check if line is chunk head line."""
         return 0 < len(line) < 5 and line[0] in "0123456789abcdef"
 
     def fetch(self, bufsize=1024):
+        """Fetch data from socket."""
         chunk = ""
         while True:
             chunk += self.read(bufsize)

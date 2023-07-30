@@ -1,5 +1,4 @@
-"""
-Illustrates usage of streamed XML (partial) parsing.
+"""Illustrates usage of streamed XML (partial) parsing.
 
 Gets gene's info from NCBI entrez API (PubMed)
 https://www.ncbi.nlm.nih.gov/

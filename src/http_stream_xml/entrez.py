@@ -1,5 +1,5 @@
-"""
-Gets gene's info from NCBI entrez API (PubMed)
+"""Get gene's info from NCBI entrez API (PubMed).
+
 https://www.ncbi.nlm.nih.gov/
 
 Downloads only necessary part of Entrez response, just enough to get all the tags
@@ -47,9 +47,7 @@ log = logging.getLogger("")
 
 
 class GeneFields:
-    """
-    Mapping of gene fields to tag names in entrez's result XML
-    """
+    """Map gene fields to tag names in entrez's result XML."""
 
     summary = "Entrezgene_summary"
     description = "Gene-ref_desc"
@@ -58,6 +56,8 @@ class GeneFields:
 
 
 class Genes:
+    """Genes class."""
+
     def __init__(
         self,
         fields=None,
@@ -65,7 +65,8 @@ class Genes:
         max_bytes_to_fetch=MAX_BYTES_TO_FETCH,
         api_key=None,
     ):
-        """
+        """Init.
+
         :param fields:  tags to extract - user GeneFields for convenient names of gene fields
         :param timeout: do not wait for Entrez response more than timeout seconds
         :param max_bytes_to_fetch: do not fetch more than max_bytes_to_fetch even if we had not got all the fields
@@ -97,15 +98,15 @@ class Genes:
         self.clear_cache()  # in-memory cache of genes already requested from NCBI.Entrez
 
     def clear_cache(self):
-        """
-        Clear all previously cached genes data so all information from this moment will be requested from NCBI server
-        """
+        """Clear all previously cached genes data so all information from this moment will be requested from NCBI server."""
         self.db = {}
 
     def canonical_gene_name(self, gene_name):
+        """Convert gene name to lower case to be case-insensitive when we search for gene name in the cache."""
         return gene_name.lower()
 
     def __getitem__(self, gene_name):
+        """Get gene info from cache or from NCBI server if not found in cache."""
         gene_name = self.canonical_gene_name(gene_name)
         if gene_name in self.db and len(self.db[gene_name]) >= len(
             self.fields
@@ -117,15 +118,19 @@ class Genes:
         return gene
 
     def api_key_query_param(self):
+        """Get query parameter for Entrez API key."""
         return ENTREZ_API_KEY_PARAM.format(self.api_key) if self.api_key is not None else ""
 
     def search_id_url(self, gene_name):
+        """Get URL to search for gene ID by gene name."""
         return ENTREZ_GENE_ID.format(gene_name=gene_name, key_param=self.api_key_query_param())
 
     def get_details_url(self, gene_id):
+        """Get URL to get gene details by gene ID."""
         return ENTREZ_GENE_DETAILS.format(gene_id=gene_id, key_param=self.api_key_query_param())
 
     def get_gene_id(self, gene_name):
+        """Get gene ID by gene name."""
         url = self.search_id_url(gene_name)
         response = requests.get(
             "https://{host}{url}".format(
@@ -145,7 +150,7 @@ class Genes:
         except KeyError:
             log.error(f"NCBI.Entrez response do not contains search result:\n{resp}")
             return
-        if not "idlist" in resp or not resp["idlist"]:
+        if "idlist" not in resp or not resp["idlist"]:
             log.error(f'NCBI.Entrez no gene "{gene_name}" ID in response:\n{resp}')
             return
         ids = resp["idlist"]
@@ -167,6 +172,7 @@ class Genes:
         return ids[0]
 
     def get_gene_details(self, gene_name):
+        """Get gene details by gene name."""
         gene_id = self.get_gene_id(gene_name)
         if gene_id:
             return self.get_gene_details_by_id(gene_id=gene_id)
@@ -174,9 +180,7 @@ class Genes:
             return {}
 
     def get_gene_details_by_id(self, gene_id):
-        """
-        Download gene's details from NCBI entrez API, using gene's ID - see get_gene_id to obtain it
-        """
+        """Download gene's details from NCBI entrez API, using gene's ID - see get_gene_id to obtain it."""
         url = self.get_details_url(gene_id)
         request = requests.get(
             "https://{host}{url}".format(
