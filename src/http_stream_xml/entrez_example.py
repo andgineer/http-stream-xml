@@ -11,7 +11,7 @@ extractor = XmlStreamExtractor(["Gene-ref_desc", "Entrezgene_summary", "Gene-ref
 
 host = "eutils.ncbi.nlm.nih.gov"
 url = "/entrez/eutils/efetch.fcgi?db=gene&id=5465&retmode=xml"
-request = requests.get(f"https://{host}{url}", stream=True, verify=False)
+request = requests.get(f"https://{host}{url}", stream=True, verify=False, timeout=10)
 
 fetched_bytes = 0
 for line in request.iter_lines(chunk_size=1024):

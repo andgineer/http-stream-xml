@@ -26,10 +26,7 @@ class SocketStream:
     def get_socket(self):
         """Get socket object."""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        if self.ssl:
-            return ssl.wrap_socket(sock, cert_reqs=ssl.CERT_NONE)
-        else:
-            return sock
+        return ssl.create_default_context().wrap_socket(sock) if self.ssl else sock
 
     @property
     def header(self):

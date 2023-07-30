@@ -17,6 +17,7 @@ Caches results inside the class instance.
 """
 import logging
 from time import time
+from typing import Optional
 
 import requests
 import urllib3
@@ -75,10 +76,7 @@ class Genes:
                         if the cons is also null will use Entrez without key (they said it will has some limitations in this case)
         """
         self.host = ENTREZ_HOST
-        if api_key is None:
-            self.api_key = API_KEY
-        else:
-            self.api_key = api_key
+        self.api_key = API_KEY if api_key is None else api_key
         if fields is None:
             self.fields = [
                 GeneFields.summary,
@@ -121,7 +119,7 @@ class Genes:
         """Get query parameter for Entrez API key."""
         return ENTREZ_API_KEY_PARAM.format(self.api_key) if self.api_key is not None else ""
 
-    def search_id_url(self, gene_name):
+    def search_id_url(self, gene_name: str) -> str:
         """Get URL to search for gene ID by gene name."""
         return ENTREZ_GENE_ID.format(gene_name=gene_name, key_param=self.api_key_query_param())
 
@@ -129,15 +127,13 @@ class Genes:
         """Get URL to get gene details by gene ID."""
         return ENTREZ_GENE_DETAILS.format(gene_id=gene_id, key_param=self.api_key_query_param())
 
-    def get_gene_id(self, gene_name):
+    def get_gene_id(self, gene_name: str) -> Optional[str]:
         """Get gene ID by gene name."""
         url = self.search_id_url(gene_name)
         response = requests.get(
-            "https://{host}{url}".format(
-                host=self.host,
-                url=url,
-            ),
+            f"https://{self.host}{url}",
             verify=False,
+            timeout=self.timeout,
         )
         try:
             resp = response.json()
@@ -146,13 +142,13 @@ class Genes:
             log.error(
                 f'NCBI.Entrez not JSON response for gene "{gene_name}" ID request:\n{response.text}'
             )
-            return
+            return None
         except KeyError:
             log.error(f"NCBI.Entrez response do not contains search result:\n{resp}")
-            return
+            return None
         if "idlist" not in resp or not resp["idlist"]:
             log.error(f'NCBI.Entrez no gene "{gene_name}" ID in response:\n{resp}')
-            return
+            return None
         ids = resp["idlist"]
         if len(ids) > 1:
             log.debug(
@@ -166,29 +162,24 @@ class Genes:
                     self.db[gene_name] = gene  # cache response so we won't request it twice
                     ids[0] = id
                     break
-                else:
-                    log.debug(f'Wrong id={id} - locus is "{gene[GeneFields.locus]}"')
+                log.debug(f'Wrong id={id} - locus is "{gene[GeneFields.locus]}"')
         log.debug(f'NCBI.Entrez: we found gene "{gene_name}" ID: {ids[0]}')
         return ids[0]
 
     def get_gene_details(self, gene_name):
         """Get gene details by gene name."""
-        gene_id = self.get_gene_id(gene_name)
-        if gene_id:
+        if gene_id := self.get_gene_id(gene_name):
             return self.get_gene_details_by_id(gene_id=gene_id)
-        else:
-            return {}
+        return {}
 
     def get_gene_details_by_id(self, gene_id):
         """Download gene's details from NCBI entrez API, using gene's ID - see get_gene_id to obtain it."""
         url = self.get_details_url(gene_id)
         request = requests.get(
-            "https://{host}{url}".format(
-                host=self.host,
-                url=url,
-            ),
+            f"https://{self.host}{url}",
             stream=True,
             verify=False,
+            timeout=self.timeout,
         )
         extractor = XmlStreamExtractor(self.fields)
 
@@ -214,10 +205,7 @@ class Genes:
                 break
 
         log.debug(
-            """NCBI.Entrez reesult for gene {gene_id}: extracted tags {names}""".format(
-                gene_id=gene_id,
-                names=", ".join([tag for tag in extractor.tags.keys()]),
-            )
+            f"""NCBI.Entrez reesult for gene {gene_id}: extracted tags {", ".join(list(extractor.tags.keys()))}"""
         )
         return extractor.tags
 
@@ -240,9 +228,8 @@ if __name__ == "__main__":
         "ush1c",
         "slc5a1",
     ]:
-        gene = genes[gene_name]
-        if not gene:
-            print(f'!!! Fail to get gene details for "{gene_name}"')
-        else:
+        if gene := genes[gene_name]:
             print(f'\nGot gene detailes for "{gene_name}"')
             print(genes[gene_name][GeneFields.description])
+        else:
+            print(f'!!! Fail to get gene details for "{gene_name}"')
