@@ -1,5 +1,6 @@
 import socket
 import ssl
+from typing import Iterator, List
 
 HEADER = "GET {url} HTTP/1.1\r\nHost: {host}\r\nUser-Agent: {agent}\r\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\r\nContent-Length: 0"
 END_OF_REQUEST = (
@@ -12,7 +13,7 @@ BEGIN_OF_BODY = "\r\n\r\n"
 class SocketStream:
     """Simple socket stream reader."""
 
-    def __init__(self, host, url, ssl=True, port=443):
+    def __init__(self, host: str, url: str, ssl: bool = True, port: int = 443) -> None:
         """Init."""
         self.host = host
         self.url = url
@@ -23,7 +24,7 @@ class SocketStream:
         self.socket = self.get_socket()
         self.fetched_bytes = 0
 
-    def get_socket(self):
+    def get_socket(self) -> socket.socket:
         """Get socket object."""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         context = ssl.create_default_context()
@@ -31,47 +32,46 @@ class SocketStream:
         return context.wrap_socket(sock) if self.ssl else sock
 
     @property
-    def header(self):
+    def header(self) -> bytes:
         """Get HTTP header."""
         return HEADER.format(host=self.host, url=self.url, agent=self.agent).encode()
 
-    def connect(self):
+    def connect(self) -> None:
         """Connect to host and send header."""
         self.socket.connect((self.host, self.port))
         self.socket.send(self.header + END_OF_REQUEST)
 
-    def close(self):
+    def close(self) -> None:
         """Close socket."""
         self.socket.close()
 
-    def read(self, bufsize=1024):
+    def read(self, bufsize: int = 1024) -> str:
         """Read from socket."""
         buf = self.socket.recv(bufsize)
         if not buf:
-            raise BufferError
+            raise BufferError("Buffer is empty")
         self.fetched_bytes += len(buf)
         return buf.decode()
 
-    def is_chunk_head_line(self, line):
+    def is_chunk_head_line(self, line: str) -> bool:
         """Check if line is chunk head line."""
         return 0 < len(line) < 5 and line[0] in "0123456789abcdef"
 
-    def fetch(self, bufsize=1024):
+    def fetch(self, bufsize: int = 1024) -> Iterator[str]:
         """Fetch data from socket."""
         chunk = ""
         while True:
             chunk += self.read(bufsize)
             body_start = chunk.find(BEGIN_OF_BODY)
             if body_start >= 0:
-                chunk = chunk[chunk.find(BEGIN_OF_BODY) + len(BEGIN_OF_BODY) :]
+                chunk = chunk[body_start + len(BEGIN_OF_BODY) :]  # Correct the slice position
                 break
         while True:
-            result = []
-            for line in chunk.split(END_OF_LINE)[:-1]:  # skip uncomplete line
-                if self.is_chunk_head_line(line):
-                    continue
-                result.append(line)
-            result = END_OF_LINE.join(result)
-            yield result
+            result: List[str] = [
+                line
+                for line in chunk.split(END_OF_LINE)[:-1]
+                if not self.is_chunk_head_line(line)
+            ]
+            yield END_OF_LINE.join(result)
             chunk = chunk.split("\r\n")[-1]  # start collecting with uncomplete line
             chunk += self.read(bufsize)
