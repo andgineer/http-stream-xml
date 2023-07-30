@@ -2,17 +2,19 @@
 
 Do not need to parse all a XML document if you only need tags from beginning of it.
 """
-import contextlib
 import xml.sax
 from xml.sax.xmlreader import XMLReader
+
+
+class ExtractionCompleted(Exception):
+    """Raised when all tags are found."""
 
 
 class XmlStreamExtractor:
     """Extract given tags from XML streamed to it by chunks (in method feed).
 
-    Raise StopIteration when all tag are found.
-
-    Found tags would be available in dict tags
+    When all tags are found, extraction_completed is True.
+    Found tags would be available in dict tags.
     """
 
     def __init__(self, tags_to_collect):
@@ -30,7 +32,7 @@ class XmlStreamExtractor:
         """
         try:
             self.parser.feed(chunk)
-        except StopIteration:
+        except ExtractionCompleted:
             self.extraction_completed = True
 
     @property
@@ -41,7 +43,10 @@ class XmlStreamExtractor:
 
 
 class StreamHandler(xml.sax.handler.ContentHandler):
-    """XML parser handler to collect given tags."""
+    """XML parser handler to collect given tags.
+
+    When all tags are found, raises ExtractionCompleted.
+    """
 
     def __init__(self, tags_to_collect):
         """Initialize XML parser handler with given tags to collect."""
@@ -66,7 +71,7 @@ class StreamHandler(xml.sax.handler.ContentHandler):
         if name in self.tags_to_collect:
             self.tag_started = None
             if self.extraction_completed():
-                raise StopIteration
+                raise ExtractionCompleted()
 
     def characters(self, content):
         """Tag content handler."""

@@ -84,7 +84,7 @@ def test_no_closing_tags():
 
 
 def test_nested_tags():
-    xml_data_1st_chunk =  """
+    xml_data_1st_chunk = """
     <root>
         <person>
             <name>John Doe</name>
