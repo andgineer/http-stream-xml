@@ -4,8 +4,8 @@
 
 | Name                                 |    Stmts |     Miss |    Cover |   Missing |
 |------------------------------------- | -------: | -------: | -------: | --------: |
-| src/http\_stream\_xml/xml\_stream.py |       35 |        0 |     100% |           |
-|                            **TOTAL** |   **35** |    **0** | **100%** |           |
+| src/http\_stream\_xml/xml\_stream.py |       38 |        0 |     100% |           |
+|                            **TOTAL** |   **38** |    **0** | **100%** |           |
 
 
 ## Setup coverage badge
