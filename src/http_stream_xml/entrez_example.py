@@ -5,7 +5,7 @@ https://www.ncbi.nlm.nih.gov/
 """
 import requests
 
-from src.http_stream_xml.xml_stream import XmlStreamExtractor
+from http_stream_xml.xml_stream import XmlStreamExtractor
 
 extractor = XmlStreamExtractor(["Gene-ref_desc", "Entrezgene_summary", "Gene-ref_syn"])
 
@@ -17,9 +17,8 @@ fetched_bytes = 0
 for line in request.iter_lines(chunk_size=1024):
     if line:
         fetched_bytes += len(line)
-        try:
-            extractor.feed(line)
-        except StopIteration:
+        extractor.feed(line)
+        if extractor.extraction_completed:
             break
         print(f"fetched {fetched_bytes} bytes, found tags {extractor.tags.keys()}")
 

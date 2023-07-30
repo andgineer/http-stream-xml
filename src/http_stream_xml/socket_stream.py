@@ -26,7 +26,9 @@ class SocketStream:
     def get_socket(self):
         """Get socket object."""
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        return ssl.create_default_context().wrap_socket(sock) if self.ssl else sock
+        context = ssl.create_default_context()
+        context.check_hostname = False
+        return context.wrap_socket(sock) if self.ssl else sock
 
     @property
     def header(self):

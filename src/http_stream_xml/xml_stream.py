@@ -20,6 +20,7 @@ class XmlStreamExtractor:
         self.stream_handler = StreamHandler(tags_to_collect)
         self.parser: XMLReader = xml.sax.make_parser()
         self.parser.setContentHandler(self.stream_handler)
+        self.extraction_completed = False
 
     def feed(self, chunk):
         """Feed next part of XML into the parser.
@@ -27,8 +28,10 @@ class XmlStreamExtractor:
         :param chunk: XML document part
         :return: None
         """
-        with contextlib.suppress(StopIteration):
+        try:
             self.parser.feed(chunk)
+        except StopIteration:
+            self.extraction_completed = True
 
     @property
     def tags(self):

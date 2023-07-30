@@ -20,13 +20,13 @@ def test_simple_extraction():
     extractor = XmlStreamExtractor(tags_to_collect)
 
     xml_data = f"{xml_data_1st_chunk}{xml_data_2nd_chunk}"
-    chunk_size = len(xml_data_1st_chunk) // 2
+    chunk_size = len(xml_data_1st_chunk) // 2 + 1
     read_size = 0
     with StringIO(xml_data) as f:
         while True:
             chunk = f.read(chunk_size)
             read_size += chunk_size
-            if not chunk or "age" in extractor.tags:
+            if not chunk or extractor.extraction_completed:
                 break
             extractor.feed(chunk)
 
@@ -84,20 +84,23 @@ def test_no_closing_tags():
 
 
 def test_nested_tags():
-    xml_data = """
+    xml_data_1st_chunk =  """
     <root>
         <person>
             <name>John Doe</name>
-            <age>30</age>
-        </person>
+            <age>30</age>"""
+    xml_data_2nd_chunk = """
+    </person>
     </root>
     """
 
     tags_to_collect = {"name", "age"}
     extractor = XmlStreamExtractor(tags_to_collect)
+    xml_data = f"{xml_data_1st_chunk}{xml_data_2nd_chunk}"
+    chunk_size = len(xml_data_1st_chunk) // 2 + 1
 
     with StringIO(xml_data) as f:
-        while chunk := f.read(1024):
+        while (chunk := f.read(chunk_size)) and not extractor.extraction_completed:
             extractor.feed(chunk)
     expected_tags = {"name": "John Doe", "age": "30"}
     assert extractor.tags == expected_tags

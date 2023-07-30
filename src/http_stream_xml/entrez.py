@@ -188,9 +188,8 @@ class Genes:
         for line in request.iter_lines(chunk_size=1024):
             if line is not None:
                 fetched_bytes += len(line)
-                try:
-                    extractor.feed(line)
-                except StopIteration:
+                extractor.feed(line)
+                if extractor.extraction_completed:
                     break
                 # too much noise so I removed that
                 # log.debug(f'NCBI.Entrez: fetched {fetched_bytes} bytes from gene details, found tags {extractor.tags.keys()}')
