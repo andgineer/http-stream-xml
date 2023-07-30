@@ -1,2 +1,8 @@
 pytest
 coverage
+
+pylint
+mypy
+pydocstyle
+pip-tools
+black

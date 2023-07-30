@@ -14,9 +14,10 @@ class XmlStreamExtractor:
 
     Found tags would be available in dict tags
     """
+
     def __init__(self, tags_to_collect):
         self.stream_handler = StreamHandler(tags_to_collect)
-        self.parser : XMLReader = xml.sax.make_parser()
+        self.parser: XMLReader = xml.sax.make_parser()
         self.parser.setContentHandler(self.stream_handler)
 
     def feed(self, chunk):
@@ -32,7 +33,7 @@ class XmlStreamExtractor:
     @property
     def tags(self):
         parser_tags = self.stream_handler.tags
-        return {tag: ''.join(values) for tag, values in parser_tags.items()}
+        return {tag: "".join(values) for tag, values in parser_tags.items()}
 
 
 class StreamHandler(xml.sax.handler.ContentHandler):
@@ -44,7 +45,7 @@ class StreamHandler(xml.sax.handler.ContentHandler):
         super().__init__()
 
     def startElement(self, name, attrs):
-        if name in self.tags_to_collect :
+        if name in self.tags_to_collect:
             self.tag_started = name
             self.tags[name] = []
 

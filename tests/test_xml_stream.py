@@ -1,6 +1,7 @@
-import pytest
 from io import StringIO
 from xml.sax import SAXParseException
+
+import pytest
 
 from http_stream_xml.xml_stream import XmlStreamExtractor
 

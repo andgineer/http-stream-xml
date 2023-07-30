@@ -49,4 +49,3 @@ Documentation
 .. |coverage| image:: https://raw.githubusercontent.com/andgineer/http-stream-xml/python-coverage-comment-action-data/badge.svg
     :target: https://htmlpreview.github.io/?https://github.com/andgineer/http-stream-xml/blob/python-coverage-comment-action-data/htmlcov/index.html
     :alt: Coverage report
-
