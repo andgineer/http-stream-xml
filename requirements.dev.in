@@ -1,6 +1,8 @@
 pytest
 coverage
 
+types-requests
+
 pylint
 mypy
 pydocstyle

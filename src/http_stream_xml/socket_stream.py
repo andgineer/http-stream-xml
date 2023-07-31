@@ -68,9 +68,7 @@ class SocketStream:
                 break
         while True:
             result: List[str] = [
-                line
-                for line in chunk.split(END_OF_LINE)[:-1]
-                if not self.is_chunk_head_line(line)
+                line for line in chunk.split(END_OF_LINE)[:-1] if not self.is_chunk_head_line(line)
             ]
             yield END_OF_LINE.join(result)
             chunk = chunk.split("\r\n")[-1]  # start collecting with uncomplete line

@@ -17,7 +17,7 @@ Caches results inside the class instance.
 """
 import logging
 from time import time
-from typing import Optional
+from typing import Any, Dict, List, Optional
 
 import requests
 import urllib3
@@ -28,7 +28,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 # Get you own Entrez key https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
-API_KEY = None
+API_KEY: Optional[str] = None
 
 # Max fetched part of XML in case we do not found all necessary tags. So we are sure
 # if we had not found all the tags there is no sense to look more than this far.
@@ -61,11 +61,11 @@ class Genes:
 
     def __init__(
         self,
-        fields=None,
-        timeout=FETCH_TIMEOUT_SECONDS,
-        max_bytes_to_fetch=MAX_BYTES_TO_FETCH,
-        api_key=None,
-    ):
+        fields: Optional[List[str]] = None,
+        timeout: int = FETCH_TIMEOUT_SECONDS,
+        max_bytes_to_fetch: int = MAX_BYTES_TO_FETCH,
+        api_key: Optional[str] = None,
+    ) -> None:
         """Init.
 
         :param fields:  tags to extract - user GeneFields for convenient names of gene fields
@@ -75,10 +75,10 @@ class Genes:
                         if None, will use module constant API_KEY.
                         if the cons is also null will use Entrez without key (they said it will has some limitations in this case)
         """
-        self.host = ENTREZ_HOST
-        self.api_key = API_KEY if api_key is None else api_key
+        self.host: str = ENTREZ_HOST
+        self.api_key: Optional[str] = API_KEY if api_key is None else api_key
         if fields is None:
-            self.fields = [
+            self.fields: List[str] = [
                 GeneFields.summary,
                 GeneFields.description,
                 GeneFields.synonyms,
@@ -94,16 +94,17 @@ class Genes:
         self.timeout = timeout
         self.max_bytes_to_fetch = max_bytes_to_fetch
         self.clear_cache()  # in-memory cache of genes already requested from NCBI.Entrez
+        self.db: Dict[str, Dict[str, Any]] = {}
 
-    def clear_cache(self):
+    def clear_cache(self) -> None:
         """Clear all previously cached genes data so all information from this moment will be requested from NCBI server."""
         self.db = {}
 
-    def canonical_gene_name(self, gene_name):
+    def canonical_gene_name(self, gene_name: str) -> str:
         """Convert gene name to lower case to be case-insensitive when we search for gene name in the cache."""
         return gene_name.lower()
 
-    def __getitem__(self, gene_name):
+    def __getitem__(self, gene_name: str) -> Dict[str, Any]:
         """Get gene info from cache or from NCBI server if not found in cache."""
         gene_name = self.canonical_gene_name(gene_name)
         if gene_name in self.db and len(self.db[gene_name]) >= len(
@@ -115,7 +116,7 @@ class Genes:
             self.db[gene_name] = gene
         return gene
 
-    def api_key_query_param(self):
+    def api_key_query_param(self) -> str:
         """Get query parameter for Entrez API key."""
         return ENTREZ_API_KEY_PARAM.format(self.api_key) if self.api_key is not None else ""
 
@@ -123,7 +124,7 @@ class Genes:
         """Get URL to search for gene ID by gene name."""
         return ENTREZ_GENE_ID.format(gene_name=gene_name, key_param=self.api_key_query_param())
 
-    def get_details_url(self, gene_id):
+    def get_details_url(self, gene_id: str) -> str:
         """Get URL to get gene details by gene ID."""
         return ENTREZ_GENE_DETAILS.format(gene_id=gene_id, key_param=self.api_key_query_param())
 
@@ -149,7 +150,7 @@ class Genes:
         if "idlist" not in resp or not resp["idlist"]:
             log.error(f'NCBI.Entrez no gene "{gene_name}" ID in response:\n{resp}')
             return None
-        ids = resp["idlist"]
+        ids: List[str] = resp["idlist"]
         if len(ids) > 1:
             log.debug(
                 f'NCBI.Entrez: we found more than one ID for gene "{gene_name}" in response: {ids}'
@@ -166,13 +167,13 @@ class Genes:
         log.debug(f'NCBI.Entrez: we found gene "{gene_name}" ID: {ids[0]}')
         return ids[0]
 
-    def get_gene_details(self, gene_name):
+    def get_gene_details(self, gene_name: str) -> Dict[str, Any]:
         """Get gene details by gene name."""
         if gene_id := self.get_gene_id(gene_name):
             return self.get_gene_details_by_id(gene_id=gene_id)
         return {}
 
-    def get_gene_details_by_id(self, gene_id):
+    def get_gene_details_by_id(self, gene_id: str) -> Dict[str, Any]:
         """Download gene's details from NCBI entrez API, using gene's ID - see get_gene_id to obtain it."""
         url = self.get_details_url(gene_id)
         request = requests.get(
