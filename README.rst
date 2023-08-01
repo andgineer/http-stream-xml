@@ -22,8 +22,8 @@ Documentation
 -------------
 `Documentation <https://http-stream-xml.sorokin.engineer/>`_
 
-.. |build_status| image:: https://github.com/andgineer/redis-redirect//workflows/ci/badge.svg
-    :target: https://github.com/andgineer/redis-redirect//actions
+.. |build_status| image:: https://github.com/andgineer/http-stream-xml//workflows/ci/badge.svg
+    :target: https://github.com/andgineer/http-stream-xml/actions
     :alt: Latest release
 
 .. |pypi_version| image:: https://img.shields.io/pypi/v/http-stream-xml.svg?style=flat-square
@@ -35,7 +35,7 @@ Documentation
     :alt: MIT license
 
 .. |readthedocs| image:: https://readthedocs.org/projects/http-stream-xml/badge/?version=latest
-    :target: https://http-stream-xml.readthedocs.io/en/latest/?badge=latest
+    :target: https://http-stream-xml.sorokin.engineer/
     :alt: Documentation Status
 
 .. |made_with_python| image:: https://img.shields.io/badge/Made%20with-Python-1f425f.svg
