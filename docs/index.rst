@@ -33,7 +33,7 @@ So you do not have to download whole huge Entrez answer to get just basic gene d
 
 .. code-block:: bash
 
-    python -m httpstreamxml.entrez
+    python -m http_stream_xml.entrez
 
 API
 ---

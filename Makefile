@@ -1,5 +1,5 @@
 #!make
-VERSION := $(shell cat src/httpstreamxml/version.py | cut -d= -f2 | sed 's/\"//g; s/ //')
+VERSION := $(shell cat src/http_stream_xml/version.py | cut -d= -f2 | sed 's/\"//g; s/ //')
 export VERSION
 
 version:
@@ -19,3 +19,6 @@ reqs:
 	bash ./scripts/compile_requirements.sh
 	pip install -r requirements.txt
 	pip install -r requirements.dev.txt
+
+docs:
+	bash ./scripts/docs.sh

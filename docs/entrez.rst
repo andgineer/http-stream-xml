@@ -1,12 +1,12 @@
 Class Genes (NCBI Entrez API)
 =============================
 
-.. automodule:: httpstreamxml.entrez
+.. automodule:: http_stream_xml.entrez
 
-.. autoclass:: httpstreamxml.entrez.Genes
+.. autoclass:: http_stream_xml.entrez.Genes
    :members:
 
-.. autoclass:: httpstreamxml.entrez.GeneFields
+.. autoclass:: http_stream_xml.entrez.GeneFields
 
 
 Usage example
@@ -14,7 +14,7 @@ Usage example
 
 .. code-block:: python
 
-    from httpstreamxml import entrez
+    from http_stream_xml import entrez
 
 
     print(entrez.genes['myo5b'][entrez.GeneFields.description])

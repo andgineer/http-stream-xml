@@ -5,7 +5,7 @@
 #   verup.sh release / feature / branch / ss
 # (ss - to create snapshot version)
 
-VERSION_FILES=("src/httpstreamxml/version.py")
+VERSION_FILES=("src/http_stream_xml/version.py")
 
 set -u
 set -e
