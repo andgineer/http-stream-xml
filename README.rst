@@ -20,7 +20,7 @@ Installation
 
 Documentation
 -------------
-`Documentation <https://http-stream-xml.sorokin.engineer/en/latest/>`_
+`Documentation <https://http-stream-xml.sorokin.engineer/>`_
 
 .. |build_status| image:: https://github.com/andgineer/redis-redirect//workflows/ci/badge.svg
     :target: https://github.com/andgineer/redis-redirect//actions
