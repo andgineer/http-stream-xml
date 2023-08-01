@@ -19,10 +19,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install sphinx sphinx_rtd_theme
+          python -m pip install -e .
       - name: Sphinx build
         run: |
           sphinx-build docs docs_build
-          python -m pip install -e .
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
