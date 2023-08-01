@@ -21,7 +21,7 @@ reqs:
 	pip install -r requirements.dev.txt
 
 docs:
-	bash ./scripts/docs.sh
+	bash sphinx-build docs docs_build
 
 docs-check:
 	bash sphinx-build docs -W -b linkcheck -d docs_build/doctrees docs_build/html
