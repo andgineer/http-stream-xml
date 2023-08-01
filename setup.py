@@ -44,7 +44,7 @@ setuptools.setup(
     },
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    url="https://http-stream-xml.readthedocs.io/en/latest/",
+    url="https://github.com/andgineer/http-stream-xml",
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     install_requires=requirements,
