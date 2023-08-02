@@ -36,7 +36,7 @@ API_KEY: Optional[str] = None
 MAX_BYTES_TO_FETCH = 10 * 1024
 
 # How long we wait for Entrez response. It does not matter how many bytes we got at the moment.
-FETCH_TIMEOUT_SECONDS = 2
+FETCH_TIMEOUT_SECONDS = 30
 
 # Internal consts
 ENTREZ_HOST = "eutils.ncbi.nlm.nih.gov"

@@ -25,3 +25,6 @@ docs:
 
 docs-check:
 	bash sphinx-build docs -W -b linkcheck -d docs_build/doctrees docs_build/html
+
+test:
+	bash ./scripts/test.sh

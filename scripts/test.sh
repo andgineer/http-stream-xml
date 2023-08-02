@@ -9,11 +9,13 @@ CYAN='\033[1;36m'
 NC='\033[0m' # No Color
 NL=$'\n'
 
-python -m unittest discover --start-directory tests --verbose $@
+coverage run -m pytest $@
 
 if [ $? -eq 0 ]; then
   echo
   echo -e $GREEN"success!"$NC
+  echo
+  coverage report --omit='tests/*'
 else
   echo
   echo -e $RED"fail"$NC
