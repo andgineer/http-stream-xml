@@ -2,11 +2,12 @@
 
 [Full report](https://htmlpreview.github.io/?https://github.com/andgineer/http-stream-xml/blob/python-coverage-comment-action-data/htmlcov/index.html)
 
-| Name                                     |    Stmts |     Miss |   Cover |   Missing |
-|----------------------------------------- | -------: | -------: | ------: | --------: |
-| src/http\_stream\_xml/entrez\_example.py |       29 |       21 |     28% |22-33, 38-55, 59-60 |
-| src/http\_stream\_xml/xml\_stream.py     |       39 |        0 |    100% |           |
-|                                **TOTAL** |   **68** |   **21** | **69%** |           |
+| Name                                                    |    Stmts |     Miss |   Cover |   Missing |
+|-------------------------------------------------------- | -------: | -------: | ------: | --------: |
+| src/http\_stream\_xml/entrez.py                         |      125 |       33 |     74% |120-126, 177-184, 186-187, 190-201, 209, 229, 234-235, 237-240, 252-270 |
+| src/http\_stream\_xml/examples/http\_stream\_example.py |       20 |       15 |     25% |14-31, 35-36 |
+| src/http\_stream\_xml/xml\_stream.py                    |       39 |        0 |    100% |           |
+|                                               **TOTAL** |  **184** |   **48** | **74%** |           |
 
 
 ## Setup coverage badge
