@@ -17,10 +17,12 @@ Caches results inside the class instance.
 """
 import logging
 from time import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Collection, Dict, List, Optional
 
 import requests
 import urllib3
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from http_stream_xml.xml_stream import XmlStreamExtractor
 
@@ -47,6 +49,34 @@ ENTREZ_GENE_ID = "/entrez/eutils/esearch.fcgi?db=gene&term={gene_name}[Gene+Name
 log = logging.getLogger("")
 
 
+from functools import lru_cache
+
+
+@lru_cache(maxsize=100)  # adjust maxsize as needed
+def requests_retry_session(
+    retries: int = 3,
+    backoff_factor: float = 1.0,
+    status_forcelist: Collection[int] = (500, 502, 504),
+    session: Optional[requests.Session] = None,
+) -> requests.Session:
+    """Retry policy configuration.
+
+    The governmental site eutils.ncbi.nlm.nih.gov sometimes response badly so we need retries.
+    """
+    session = session or requests.Session()
+    retry = Retry(
+        total=retries,
+        read=retries,
+        connect=retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_forcelist,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
+
+
 class GeneFields:
     """Map gene fields to tag names in entrez's result XML."""
 
@@ -54,6 +84,14 @@ class GeneFields:
     description = "Gene-ref_desc"
     synonyms = "Gene-ref_syn"
     locus = "Gene-ref_locus"
+
+
+GENE_FIELDS = [
+    GeneFields.summary,
+    GeneFields.description,
+    GeneFields.synonyms,
+    GeneFields.locus,
+]
 
 
 class Genes:
@@ -78,12 +116,7 @@ class Genes:
         self.host: str = ENTREZ_HOST
         self.api_key: Optional[str] = API_KEY if api_key is None else api_key
         if fields is None:
-            self.fields: List[str] = [
-                GeneFields.summary,
-                GeneFields.description,
-                GeneFields.synonyms,
-                GeneFields.locus,
-            ]
+            self.fields: List[str] = GENE_FIELDS
         elif not isinstance(fields, list) or len(fields) == 0:
             raise ValueError("Expected non-empty list of fields to extract in fields parameter.")
         elif GeneFields.locus not in fields:
@@ -118,7 +151,9 @@ class Genes:
 
     def api_key_query_param(self) -> str:
         """Get query parameter for Entrez API key."""
-        return ENTREZ_API_KEY_PARAM.format(self.api_key) if self.api_key is not None else ""
+        return (
+            ENTREZ_API_KEY_PARAM.format(api_key=self.api_key) if self.api_key is not None else ""
+        )
 
     def search_id_url(self, gene_name: str) -> str:
         """Get URL to search for gene ID by gene name."""
@@ -131,7 +166,7 @@ class Genes:
     def get_gene_id(self, gene_name: str) -> Optional[str]:
         """Get gene ID by gene name."""
         url = self.search_id_url(gene_name)
-        response = requests.get(
+        response = requests_retry_session().get(
             f"https://{self.host}{url}",
             verify=False,
             timeout=self.timeout,
@@ -176,7 +211,7 @@ class Genes:
     def get_gene_details_by_id(self, gene_id: str) -> Dict[str, Any]:
         """Download gene's details from NCBI entrez API, using gene's ID - see get_gene_id to obtain it."""
         url = self.get_details_url(gene_id)
-        request = requests.get(
+        request = requests_retry_session().get(
             f"https://{self.host}{url}",
             stream=True,
             verify=False,

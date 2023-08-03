@@ -3,37 +3,13 @@
 Gets gene's info from NCBI entrez API (PubMed)
 https://www.ncbi.nlm.nih.gov/
 """
-from typing import Iterable, Optional
+from typing import Union
 
-import requests
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
-
+from http_stream_xml.entrez import requests_retry_session
 from http_stream_xml.xml_stream import XmlStreamExtractor
 
 
-def requests_retry_session(
-    retries: int = 3,
-    backoff_factor: float = 1.0,
-    status_forcelist: Iterable[int] = (500, 502, 504),
-    session: Optional[requests.Session] = None,
-) -> requests.Session:
-    """Retry policy configuration."""
-    session = session or requests.Session()
-    retry = Retry(
-        total=retries,
-        read=retries,
-        connect=retries,
-        backoff_factor=backoff_factor,
-        status_forcelist=status_forcelist,
-    )
-    adapter = HTTPAdapter(max_retries=retry)
-    session.mount("http://", adapter)
-    session.mount("https://", adapter)
-    return session
-
-
-def get_gene_info(gene_id: str) -> XmlStreamExtractor:
+def get_gene_info(gene_id: Union[str, int]) -> XmlStreamExtractor:
     """Get gene's info from NCBI entrez API (PubMed)."""
     extractor = XmlStreamExtractor(["Gene-ref_desc", "Entrezgene_summary", "Gene-ref_syn"])
 

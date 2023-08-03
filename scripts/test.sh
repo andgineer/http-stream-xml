@@ -9,7 +9,8 @@ CYAN='\033[1;36m'
 NC='\033[0m' # No Color
 NL=$'\n'
 
-coverage run -m pytest $@
+echo "coverage run -m pytest $@"
+coverage run -m pytest "$@"
 
 if [ $? -eq 0 ]; then
   echo
