@@ -11,6 +11,8 @@ Or just partial download of big HTTP response.
 
 I use it to work with `NCBI (PubMed) Entrez API <https://www.ncbi.nlm.nih.gov/>`_.
 
+See usage example in [the blog article](https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html).
+
 Installation
 ------------
 
