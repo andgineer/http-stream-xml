@@ -27,6 +27,14 @@ def test_canonical_gene_name(mock_genes):
     assert mock_genes.canonical_gene_name("Test") == "test"
 
 
+def test_gene_add_locus():
+    genes = Genes(fields=[
+        GeneFields.summary,
+        GeneFields.description,
+        GeneFields.synonyms,
+    ])
+    assert GeneFields.locus in genes.fields
+
 @mock.patch.object(Genes, "get_gene_details", return_value={})
 def test_getitem_from_cache(mock_get_gene_details, mock_genes):
     mock_genes.db = {
