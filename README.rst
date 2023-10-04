@@ -20,6 +20,14 @@ Installation
 
     pip install http-stream-xml --upgrade
 
+Scripts
+-------
+
+.. code-block:: bash
+
+    make help
+
+
 Documentation
 -------------
 `Documentation <https://http-stream-xml.sorokin.engineer/>`_
