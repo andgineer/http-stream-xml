@@ -7,10 +7,10 @@ import setuptools
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
-with open("requirements.txt") as f:
+with open("requirements.in") as f:
     requirements = f.read().splitlines()
 
-with open("requirements.dev.txt") as f:
+with open("requirements.dev.in") as f:
     tests_requirements = f.read().splitlines()
 
 

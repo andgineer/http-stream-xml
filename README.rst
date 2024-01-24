@@ -1,7 +1,7 @@
 http-stream-xml
 ===============
 
-|made_with_python| |build_status| |coverage| |codecov| |pypi_version| |pypi_license| |readthedocs|
+|made_with_python| |build_status| |coverage| |pypi_version| |pypi_license| |readthedocs|
 
 Parse XML in HTTP response on the fly, by chunks.
 
@@ -27,6 +27,10 @@ Scripts
 
     make help
 
+Coverage report
+---------------
+* `Codecov <https://app.codecov.io/gh/andgineer/http-stream-xml/tree/master/http_stream_xml>`_
+* `Coveralls <https://coveralls.io/github/andgineer/http-stream-xml>`_
 
 Documentation
 -------------

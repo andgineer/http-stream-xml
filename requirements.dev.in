@@ -1,10 +1,12 @@
+# test
 pytest
-coverage
+pytest-cov
+coveralls
 
+# doc
 sphinx
 
-types-requests
-
+# lint
 pylint
 mypy
 pydocstyle

@@ -22,7 +22,7 @@ class XmlStreamExtractor:
         """Initialize XML parser with given tags to collect."""
         self.stream_handler = StreamHandler(tags_to_collect)
         self.parser: XMLReader = xml.sax.make_parser()
-        self.parser.setContentHandler(self.stream_handler)  # type: ignore
+        self.parser.setContentHandler(self.stream_handler)
         self.extraction_completed = False
 
     def feed(self, chunk: str) -> None:
