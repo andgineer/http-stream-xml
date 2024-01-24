@@ -29,7 +29,7 @@ Scripts
 
 Coverage report
 ---------------
-* `Codecov <https://app.codecov.io/gh/andgineer/http-stream-xml/tree/master/http_stream_xml>`_
+* `Codecov <https://app.codecov.io/gh/andgineer/http-stream-xml/tree/master/src/http_stream_xml>`_
 * `Coveralls <https://coveralls.io/github/andgineer/http-stream-xml>`_
 
 Documentation

@@ -7,6 +7,7 @@ coveralls
 sphinx
 
 # lint
+pre-commit
 pylint
 mypy
 pydocstyle

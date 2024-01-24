@@ -43,7 +43,7 @@ jobs:
 
     - name: Test
       run: |
-        python -m pytest  -m "not slow" --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=bombard tests/
+        python -m pytest  -m "not slow" --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=src tests/
 
     - name: Upload coverage data to coveralls.io
       if: ${{ matrix.python-version == 3.11 && matrix.platform == 'ubuntu-latest' }}
