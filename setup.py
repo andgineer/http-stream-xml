@@ -48,7 +48,7 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     install_requires=requirements,
-    tests_require=tests_requirements,
+    extras_require={'test': tests_requirements},
     python_requires=">=3.9",
     keywords="http stream xml chunked",
     classifiers=[
