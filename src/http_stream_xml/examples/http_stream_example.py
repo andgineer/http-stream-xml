@@ -3,6 +3,7 @@
 Gets gene's info from NCBI entrez API (PubMed)
 https://www.ncbi.nlm.nih.gov/
 """
+
 from typing import Union
 
 from http_stream_xml.entrez import requests_retry_session

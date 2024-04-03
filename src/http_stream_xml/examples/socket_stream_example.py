@@ -1,4 +1,5 @@
 """Example of using SocketStream and XmlStreamExtractor to fetch and extract XML data from a remote server."""
+
 from http_stream_xml.socket_stream import SocketStream
 from http_stream_xml.xml_stream import XmlStreamExtractor
 

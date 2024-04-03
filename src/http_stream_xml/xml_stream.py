@@ -2,6 +2,7 @@
 
 Do not need to parse all a XML document if you only need tags from beginning of it.
 """
+
 import xml.sax
 from typing import Any, Dict, Optional, Sequence
 from xml.sax.xmlreader import XMLReader

@@ -15,6 +15,7 @@ On other hand, all methods in the class search for gene name case-sensitive.
 
 Caches results inside the class instance.
 """
+
 import logging
 from time import time
 from typing import Any, Collection, Dict, List, Optional
