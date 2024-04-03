@@ -4,8 +4,8 @@
 
 | Name                                                    |    Stmts |     Miss |   Cover |   Missing |
 |-------------------------------------------------------- | -------: | -------: | ------: | --------: |
-| src/http\_stream\_xml/entrez.py                         |      125 |       30 |     76% |121, 126, 177-184, 186-187, 190-201, 209, 229, 234-235, 237-240, 252-270 |
-| src/http\_stream\_xml/examples/http\_stream\_example.py |       20 |       15 |     25% |14-31, 35-36 |
+| src/http\_stream\_xml/entrez.py                         |      125 |       30 |     76% |122, 127, 178-185, 187-188, 191-202, 210, 230, 235-236, 238-241, 253-271 |
+| src/http\_stream\_xml/examples/http\_stream\_example.py |       20 |       15 |     25% |15-32, 36-37 |
 | src/http\_stream\_xml/socket\_stream.py                 |       50 |       50 |      0% |      1-75 |
 | src/http\_stream\_xml/version.py                        |        1 |        1 |      0% |         1 |
 | src/http\_stream\_xml/xml\_stream.py                    |       39 |        0 |    100% |           |
