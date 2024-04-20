@@ -42,8 +42,10 @@ filelock==3.13.3
     # via virtualenv
 identify==2.5.35
     # via pre-commit
-idna==3.6
-    # via requests
+idna==3.7
+    # via
+    #   -r requirements.in
+    #   requests
 imagesize==1.4.1
     # via sphinx
 iniconfig==2.0.0
@@ -103,6 +105,7 @@ pyyaml==6.0.1
     # via pre-commit
 requests==2.31.0
     # via
+    #   -r requirements.in
     #   coveralls
     #   sphinx
 snowballstemmer==2.2.0

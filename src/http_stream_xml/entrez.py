@@ -26,6 +26,8 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from http_stream_xml.xml_stream import XmlStreamExtractor
+from functools import lru_cache
+
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -48,9 +50,6 @@ ENTREZ_API_KEY_PARAM = "&api_key={api_key}"
 ENTREZ_GENE_ID = "/entrez/eutils/esearch.fcgi?db=gene&term={gene_name}[Gene+Name]+AND+homo+sapience[Organism]&retmode=json{key_param}"
 
 log = logging.getLogger("")
-
-
-from functools import lru_cache
 
 
 @lru_cache(maxsize=100)  # adjust maxsize as needed
@@ -141,8 +140,8 @@ class Genes:
     def __getitem__(self, gene_name: str) -> Dict[str, Any]:
         """Get gene info from cache or from NCBI server if not found in cache."""
         gene_name = self.canonical_gene_name(gene_name)
-        if gene_name in self.db and len(self.db[gene_name]) >= len(
-            self.fields
+        if (
+            gene_name in self.db and len(self.db[gene_name]) >= len(self.fields)
         ):  # if not all fields was found we repeat info gathering in hope this time we get all we need
             return self.db[gene_name]
         gene = self.get_gene_details(gene_name)
