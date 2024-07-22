@@ -22,10 +22,17 @@ Installation
 
 Scripts
 -------
+Install [invoke](https://docs.pyinvoke.org/en/stable/) preferably with pipx:
 
 .. code-block:: bash
 
-    make help
+    pipx install invoke
+
+To get available scripts:
+
+.. code-block:: bash
+
+    inv --list
 
 Coverage report
 ---------------
