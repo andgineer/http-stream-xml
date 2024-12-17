@@ -142,3 +142,26 @@ def test_repeated_tags():
             extractor.feed(chunk)
     expected_tags = {"name": "John Doe", "age": "30"}
     assert extractor.tags == expected_tags
+
+
+def test_xml_stream_with_cdata():
+    xml_data = """
+    <root>
+        <name><![CDATA[John & Doe]]></name>
+        <age>30</age>
+    </root>
+    """
+    extractor = XmlStreamExtractor(["name", "age"])
+    extractor.feed(xml_data)
+    assert extractor.tags == {"name": "John & Doe", "age": "30"}
+
+def test_xml_stream_with_special_chars():
+    xml_data = """
+    <root>
+        <name>John &amp; &lt;Doe&gt;</name>
+        <age>30</age>
+    </root>
+    """
+    extractor = XmlStreamExtractor(["name", "age"])
+    extractor.feed(xml_data)
+    assert extractor.tags == {"name": "John & <Doe>", "age": "30"}

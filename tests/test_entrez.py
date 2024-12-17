@@ -128,3 +128,74 @@ def test_search_id_url(mock_genes):
 def test_get_details_url(mock_genes):
     url = mock_genes.get_details_url("123456")
     assert url == "/entrez/eutils/efetch.fcgi?db=gene&id=123456&retmode=xml"
+
+
+def test_genes_invalid_fields():
+    with pytest.raises(ValueError, match="Expected non-empty list of fields"):
+        Genes(fields=[])
+
+
+def test_genes_cache_behavior():
+    # Initialize with exactly the fields we're mocking
+    genes = Genes(fields=[
+        "Entrezgene_summary",
+        "Gene-ref_desc",
+        "Gene-ref_locus"
+    ])
+
+    with patch.object(genes, 'get_gene_details') as mock_details:
+        mock_details.return_value = {
+            "Entrezgene_summary": "Test Gene",
+            "Gene-ref_desc": "Test description",
+            "Gene-ref_locus": "test_gene",
+        }
+
+        # First call should hit the API
+        result1 = genes["TEST_GENE"]
+        assert mock_details.call_count == 1
+
+        # Second call should use cache
+        result2 = genes["test_gene"]
+        assert mock_details.call_count == 1
+        assert result1 == result2
+
+
+def test_genes_incomplete_cache_refresh():
+    genes = Genes(fields=[GeneFields.summary, GeneFields.description, GeneFields.locus])
+    genes.db = {
+        "test": {
+            GeneFields.summary: "Test summary"
+        }
+    }
+
+    with patch.object(genes, 'get_gene_details') as mock_details:
+        mock_details.return_value = {
+            GeneFields.summary: "New summary",
+            GeneFields.description: "Test description",
+            GeneFields.locus: "test"
+        }
+
+        result = genes["test"]
+        assert mock_details.call_count == 1
+        assert len(result) == 3
+
+
+def test_genes_api_key_handling():
+    genes = Genes(api_key="test_key")
+    url = genes.search_id_url("test_gene")
+    assert "api_key=test_key" in url
+
+    genes = Genes(api_key=None)
+    url = genes.search_id_url("test_gene")
+    assert "api_key" not in url
+
+
+@patch('http_stream_xml.entrez.requests_retry_session')
+def test_genes_timeout_handling(mock_session):
+    genes = Genes(timeout=1)
+    mock_response = Mock()
+    mock_response.json.return_value = {"esearchresult": {"idlist": []}}
+    mock_session.return_value.get.return_value = mock_response
+
+    result = genes.get_gene_id("test_gene")
+    assert mock_session.return_value.get.call_args[1]["timeout"] == 1
