@@ -1,3 +1,5 @@
+-r requirements.in
+
 # test
 pytest
 pytest-cov
@@ -13,3 +15,6 @@ mypy
 pydocstyle
 pip-tools
 black
+
+# build & reqs management
+-e .
