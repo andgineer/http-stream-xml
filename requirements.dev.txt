@@ -4,7 +4,7 @@
     # via -r requirements.dev.in
 alabaster==1.0.0
     # via sphinx
-astroid==3.3.6
+astroid==3.3.8
     # via pylint
 babel==2.16.0
     # via sphinx
@@ -16,13 +16,13 @@ certifi==2024.12.14
     # via requests
 cfgv==3.4.0
     # via pre-commit
-charset-normalizer==3.4.0
+charset-normalizer==3.4.1
     # via requests
-click==8.1.7
+click==8.1.8
     # via
     #   black
     #   pip-tools
-coverage==7.6.9
+coverage==7.6.10
     # via
     #   coveralls
     #   pytest-cov
@@ -38,7 +38,7 @@ docutils==0.21.2
     # via sphinx
 filelock==3.16.1
     # via virtualenv
-identify==2.6.3
+identify==2.6.5
     # via pre-commit
 idna==3.10
     # via requests
@@ -48,13 +48,13 @@ iniconfig==2.0.0
     # via pytest
 isort==5.13.2
     # via pylint
-jinja2==3.1.4
+jinja2==3.1.5
     # via sphinx
 markupsafe==3.0.2
     # via jinja2
 mccabe==0.7.0
     # via pylint
-mypy==1.13.0
+mypy==1.14.1
     # via -r requirements.dev.in
 mypy-extensions==1.0.0
     # via
@@ -85,9 +85,9 @@ pre-commit==4.0.1
     # via -r requirements.dev.in
 pydocstyle==6.3.0
     # via -r requirements.dev.in
-pygments==2.18.0
+pygments==2.19.1
     # via sphinx
-pylint==3.3.2
+pylint==3.3.3
     # via -r requirements.dev.in
 pyproject-hooks==1.2.0
     # via
@@ -107,7 +107,7 @@ requests==2.32.3
     #   coveralls
     #   http-stream-xml
     #   sphinx
-setuptools==75.6.0
+setuptools==75.8.0
     # via pip-tools
 snowballstemmer==2.2.0
     # via
@@ -131,9 +131,9 @@ tomlkit==0.13.2
     # via pylint
 typing-extensions==4.12.2
     # via mypy
-urllib3==2.2.3
+urllib3==2.3.0
     # via requests
-virtualenv==20.28.0
+virtualenv==20.29.0
     # via pre-commit
 wheel==0.45.1
     # via pip-tools
