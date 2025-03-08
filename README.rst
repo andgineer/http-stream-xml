@@ -20,6 +20,10 @@ Installation
 
     pip install http-stream-xml --upgrade
 
+Documentation
+-------------
+`Documentation <https://http-stream-xml.sorokin.engineer/>`_
+
 Scripts
 -------
 Install [invoke](https://docs.pyinvoke.org/en/stable/) preferably with pipx:
@@ -38,10 +42,6 @@ Coverage report
 ---------------
 * `Codecov <https://app.codecov.io/gh/andgineer/http-stream-xml/tree/master/src/http_stream_xml>`_
 * `Coveralls <https://coveralls.io/github/andgineer/http-stream-xml>`_
-
-Documentation
--------------
-`Documentation <https://http-stream-xml.sorokin.engineer/>`_
 
 .. |build_status| image:: https://github.com/andgineer/http-stream-xml//workflows/ci/badge.svg
     :target: https://github.com/andgineer/http-stream-xml/actions

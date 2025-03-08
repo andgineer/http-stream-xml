@@ -4,6 +4,7 @@ from http_stream_xml.socket_stream import SocketStream
 import socket
 import ssl
 
+
 def test_socket_stream_init():
     stream = SocketStream("example.com", "/test", ssl=True, port=443)
     assert stream.host == "example.com"
@@ -12,14 +13,15 @@ def test_socket_stream_init():
     assert stream.ssl == True
     assert stream.fetched_bytes == 0
 
+
 def test_socket_stream_non_ssl():
     stream = SocketStream("example.com", "/test", ssl=False, port=80)
     assert isinstance(stream.socket, socket.socket)
     assert not isinstance(stream.socket, ssl.SSLSocket)
 
 
-@patch('socket.socket')
-@patch('ssl.create_default_context')
+@patch("socket.socket")
+@patch("ssl.create_default_context")
 def test_socket_stream_connect_ssl(mock_ssl_context, mock_socket_class):
     # Create a mock socket instance with required attributes
     mock_socket_instance = Mock()

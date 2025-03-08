@@ -4,11 +4,12 @@ Do not need to parse all a XML document if you only need tags from beginning of 
 """
 
 import xml.sax
-from typing import Any, Dict, Optional, Sequence
+from collections.abc import Sequence
+from typing import Any, Optional
 from xml.sax.xmlreader import XMLReader
 
 
-class ExtractionCompleted(Exception):
+class ExtractionCompleted(Exception):  # noqa: N818
     """Raised when all tags are found."""
 
 
@@ -22,7 +23,7 @@ class XmlStreamExtractor:
     def __init__(self, tags_to_collect: Sequence[str]) -> None:
         """Initialize XML parser with given tags to collect."""
         self.stream_handler = StreamHandler(tags_to_collect)
-        self.parser: XMLReader = xml.sax.make_parser()
+        self.parser: XMLReader = xml.sax.make_parser()  # noqa: S317
         self.parser.setContentHandler(self.stream_handler)
         self.extraction_completed = False
 
@@ -38,13 +39,13 @@ class XmlStreamExtractor:
             self.extraction_completed = True
 
     @property
-    def tags(self) -> Dict[str, str]:
+    def tags(self) -> dict[str, str]:
         """Return found tags."""
         parser_tags = self.stream_handler.tags
         return {tag: "".join(values) for tag, values in parser_tags.items()}
 
 
-class StreamHandler(xml.sax.handler.ContentHandler):
+class StreamHandler(xml.sax.handler.ContentHandler):  # noqa: N802
     """XML parser handler to collect given tags.
 
     When all tags are found, raises ExtractionCompleted.
@@ -54,11 +55,11 @@ class StreamHandler(xml.sax.handler.ContentHandler):
         """Initialize XML parser handler with given tags to collect."""
         self.tags_to_collect = tags_to_collect
 
-        self.tags: Dict[str, Any] = {}
+        self.tags: dict[str, Any] = {}
         self.tag_started: Optional[str] = None
         super().__init__()
 
-    def startElement(self, name: str, attrs: Any) -> None:
+    def startElement(self, name: str, _attrs: Any) -> None:
         """Start tag handler."""
         if name in self.tags_to_collect:
             self.tag_started = name

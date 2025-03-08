@@ -1,8 +1,11 @@
 import socket
 import ssl
-from typing import Iterator, List
+from collections.abc import Iterator
 
-HEADER = "GET {url} HTTP/1.1\r\nHost: {host}\r\nUser-Agent: {agent}\r\nContent-Type: application/x-www-form-urlencoded; charset=UTF-8\r\nContent-Length: 0"
+HEADER = (
+    "GET {url} HTTP/1.1\r\nHost: {host}\r\nUser-Agent: {agent}\r\n"
+    "Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\nContent-Length: 0"
+)
 END_OF_REQUEST = (
     b"\r\n\r\n\r\n\r\n"  # two times CR/LF + empty body + 2 times CR/LF to complete the request
 )
@@ -55,7 +58,8 @@ class SocketStream:
 
     def is_chunk_head_line(self, line: str) -> bool:
         """Check if line is chunk head line."""
-        return 0 < len(line) < 5 and line[0] in "0123456789abcdef"
+        chunk_id_max_length = 5
+        return 0 < len(line) < chunk_id_max_length and line[0] in "0123456789abcdef"
 
     def fetch(self, bufsize: int = 1024) -> Iterator[str]:
         """Fetch data from socket."""
@@ -67,7 +71,7 @@ class SocketStream:
                 chunk = chunk[body_start + len(BEGIN_OF_BODY) :]  # Correct the slice position
                 break
         while True:
-            result: List[str] = [
+            result: list[str] = [
                 line for line in chunk.split(END_OF_LINE)[:-1] if not self.is_chunk_head_line(line)
             ]
             yield END_OF_LINE.join(result)

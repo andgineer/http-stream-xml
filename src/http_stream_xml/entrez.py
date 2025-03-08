@@ -17,8 +17,10 @@ Caches results inside the class instance.
 """
 
 import logging
+from collections.abc import Collection
+from functools import lru_cache
 from time import time
-from typing import Any, Collection, Dict, List, Optional
+from typing import Any, Optional
 
 import requests
 import urllib3
@@ -26,8 +28,6 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 from http_stream_xml.xml_stream import XmlStreamExtractor
-from functools import lru_cache
-
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -47,7 +47,10 @@ FETCH_TIMEOUT_SECONDS = 30
 ENTREZ_HOST = "eutils.ncbi.nlm.nih.gov"
 ENTREZ_GENE_DETAILS = "/entrez/eutils/efetch.fcgi?db=gene&id={gene_id}&retmode=xml{key_param}"
 ENTREZ_API_KEY_PARAM = "&api_key={api_key}"
-ENTREZ_GENE_ID = "/entrez/eutils/esearch.fcgi?db=gene&term={gene_name}[Gene+Name]+AND+homo+sapience[Organism]&retmode=json{key_param}"
+ENTREZ_GENE_ID = (
+    "/entrez/eutils/esearch.fcgi?db=gene&term={gene_name}[Gene+Name]"
+    "+AND+homo+sapience[Organism]&retmode=json{key_param}"
+)
 
 log = logging.getLogger("")
 
@@ -99,7 +102,7 @@ class Genes:
 
     def __init__(
         self,
-        fields: Optional[List[str]] = None,
+        fields: Optional[list[str]] = None,
         timeout: int = FETCH_TIMEOUT_SECONDS,
         max_bytes_to_fetch: int = MAX_BYTES_TO_FETCH,
         api_key: Optional[str] = None,
@@ -108,15 +111,18 @@ class Genes:
 
         :param fields:  tags to extract - user GeneFields for convenient names of gene fields
         :param timeout: do not wait for Entrez response more than timeout seconds
-        :param max_bytes_to_fetch: do not fetch more than max_bytes_to_fetch even if we had not got all the fields
-        :param api_key: Entrez API key, see details in https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
-                        if None, will use module constant API_KEY.
-                        if the cons is also null will use Entrez without key (they said it will has some limitations in this case)
+        :param max_bytes_to_fetch:
+            do not fetch more than max_bytes_to_fetch even if we had not got all the fields
+        :param api_key: Entrez API key, see details
+            in https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
+            if None, will use module constant API_KEY.
+            if the cons is also null will use Entrez without key
+            (they said it will has some limitations in this case)
         """
         self.host: str = ENTREZ_HOST
         self.api_key: Optional[str] = API_KEY if api_key is None else api_key
         if fields is None:
-            self.fields: List[str] = GENE_FIELDS
+            self.fields: list[str] = GENE_FIELDS
         elif not isinstance(fields, list) or len(fields) == 0:
             raise ValueError("Expected non-empty list of fields to extract in fields parameter.")
         elif GeneFields.locus not in fields:
@@ -127,22 +133,28 @@ class Genes:
         self.timeout = timeout
         self.max_bytes_to_fetch = max_bytes_to_fetch
         self.clear_cache()  # in-memory cache of genes already requested from NCBI.Entrez
-        self.db: Dict[str, Dict[str, Any]] = {}
+        self.db: dict[str, dict[str, Any]] = {}
 
     def clear_cache(self) -> None:
-        """Clear all previously cached genes data so all information from this moment will be requested from NCBI server."""
+        """Clear all previously cached genes data.
+
+        so all information from this moment will be requested from NCBI server.
+        """
         self.db = {}
 
     def canonical_gene_name(self, gene_name: str) -> str:
-        """Convert gene name to lower case to be case-insensitive when we search for gene name in the cache."""
+        """Convert gene name to lower case.
+
+        to be case-insensitive when we search for gene name in the cache.
+        """
         return gene_name.lower()
 
-    def __getitem__(self, gene_name: str) -> Dict[str, Any]:
+    def __getitem__(self, gene_name: str) -> dict[str, Any]:
         """Get gene info from cache or from NCBI server if not found in cache."""
         gene_name = self.canonical_gene_name(gene_name)
-        if (
-            gene_name in self.db and len(self.db[gene_name]) >= len(self.fields)
-        ):  # if not all fields was found we repeat info gathering in hope this time we get all we need
+        if gene_name in self.db and len(self.db[gene_name]) >= len(
+            self.fields,
+        ):  # if not all fields was found we repeat info gathering
             return self.db[gene_name]
         gene = self.get_gene_details(gene_name)
         if gene:
@@ -151,9 +163,7 @@ class Genes:
 
     def api_key_query_param(self) -> str:
         """Get query parameter for Entrez API key."""
-        return (
-            ENTREZ_API_KEY_PARAM.format(api_key=self.api_key) if self.api_key is not None else ""
-        )
+        return ENTREZ_API_KEY_PARAM.format(api_key=self.api_key) if self.api_key is not None else ""
 
     def search_id_url(self, gene_name: str) -> str:
         """Get URL to search for gene ID by gene name."""
@@ -176,7 +186,8 @@ class Genes:
             resp = resp["esearchresult"]
         except ValueError:
             log.error(
-                f'NCBI.Entrez not JSON response for gene "{gene_name}" ID request:\n{response.text}'
+                f'NCBI.Entrez not JSON response for gene "{gene_name}" '
+                f"ID request:\n{response.text}",
             )
             return None
         except KeyError:
@@ -185,31 +196,34 @@ class Genes:
         if "idlist" not in resp or not resp["idlist"]:
             log.error(f'NCBI.Entrez no gene "{gene_name}" ID in response:\n{resp}')
             return None
-        ids: List[str] = resp["idlist"]
+        ids: list[str] = resp["idlist"]
         if len(ids) > 1:
             log.debug(
-                f'NCBI.Entrez: we found more than one ID for gene "{gene_name}" in response: {ids}'
+                f'NCBI.Entrez: we found more than one ID for gene "{gene_name}" in response: {ids}',
             )
-            for id in ids:
-                gene = self.get_gene_details_by_id(id)
+            for gene_id in ids:
+                gene = self.get_gene_details_by_id(gene_id)
                 if (
                     self.canonical_gene_name(gene[GeneFields.locus]) == gene_name
                 ):  # we assume input name are already canonical
                     self.db[gene_name] = gene  # cache response so we won't request it twice
-                    ids[0] = id
+                    ids[0] = gene_id
                     break
-                log.debug(f'Wrong id={id} - locus is "{gene[GeneFields.locus]}"')
+                log.debug(f'Wrong id={gene_id} - locus is "{gene[GeneFields.locus]}"')
         log.debug(f'NCBI.Entrez: we found gene "{gene_name}" ID: {ids[0]}')
         return ids[0]
 
-    def get_gene_details(self, gene_name: str) -> Dict[str, Any]:
+    def get_gene_details(self, gene_name: str) -> dict[str, Any]:
         """Get gene details by gene name."""
         if gene_id := self.get_gene_id(gene_name):
             return self.get_gene_details_by_id(gene_id=gene_id)
         return {}
 
-    def get_gene_details_by_id(self, gene_id: str) -> Dict[str, Any]:
-        """Download gene's details from NCBI entrez API, using gene's ID - see get_gene_id to obtain it."""
+    def get_gene_details_by_id(self, gene_id: str) -> dict[str, Any]:
+        """Download gene's details from NCBI entrez API, using gene's ID.
+
+        see get_gene_id to obtain it.
+        """
         url = self.get_details_url(gene_id)
         request = requests_retry_session().get(
             f"https://{self.host}{url}",
@@ -228,19 +242,22 @@ class Genes:
                 if extractor.extraction_completed:
                     break
                 # too much noise so I removed that
-                # log.debug(f'NCBI.Entrez: fetched {fetched_bytes} bytes from gene details, found tags {extractor.tags.keys()}')
+                # log.debug(f'NCBI.Entrez: fetched {fetched_bytes} bytes from gene details,
+                # found tags {extractor.tags.keys()}')
             elapsed = time() - start  # in seconds and decimal parts of seconds
             if elapsed > self.timeout:
                 log.error("NCBI.Entrez gene details fetch timeout")
                 break
             if fetched_bytes > self.max_bytes_to_fetch:
                 log.debug(
-                    f"NCBI.Entrez fetched {fetched_bytes}. Not all fields was found but no sense to fetch more."
+                    f"NCBI.Entrez fetched {fetched_bytes}. "
+                    f"Not all fields was found but no sense to fetch more.",
                 )
                 break
 
         log.debug(
-            f"""NCBI.Entrez reesult for gene {gene_id}: extracted tags {", ".join(list(extractor.tags.keys()))}"""
+            f"NCBI.Entrez reesult for gene {gene_id}: "
+            f"extracted tags {', '.join(list(extractor.tags.keys()))}",
         )
         return extractor.tags
 

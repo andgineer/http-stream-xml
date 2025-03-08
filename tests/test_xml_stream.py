@@ -155,6 +155,7 @@ def test_xml_stream_with_cdata():
     extractor.feed(xml_data)
     assert extractor.tags == {"name": "John & Doe", "age": "30"}
 
+
 def test_xml_stream_with_special_chars():
     xml_data = """
     <root>

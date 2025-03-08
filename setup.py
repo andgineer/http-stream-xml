@@ -4,7 +4,7 @@ import os.path
 
 import setuptools
 
-with open("README.rst", "r") as fh:
+with open("README.rst") as fh:
     long_description = fh.read()
 
 with open("requirements.in") as f:

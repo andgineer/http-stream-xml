@@ -1,10 +1,14 @@
-"""Example of using SocketStream and XmlStreamExtractor to fetch and extract XML data from a remote server."""
+"""Example of using SocketStream and XmlStreamExtractor.
+
+to fetch and extract XML data from a remote server.
+"""
 
 from http_stream_xml.socket_stream import SocketStream
 from http_stream_xml.xml_stream import XmlStreamExtractor
 
 stream = SocketStream(
-    host="eutils.ncbi.nlm.nih.gov", url="/entrez/eutils/efetch.fcgi?db=gene&id=5465&retmode=xml"
+    host="eutils.ncbi.nlm.nih.gov",
+    url="/entrez/eutils/efetch.fcgi?db=gene&id=5465&retmode=xml",
 )
 stream.connect()
 extractor = XmlStreamExtractor(["Gene-ref_desc", "Entrezgene_summary", "Gene-ref_syn"])

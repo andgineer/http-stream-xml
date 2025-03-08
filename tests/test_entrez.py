@@ -15,9 +15,7 @@ def mock_genes():
 @pytest.fixture
 def mock_session():
     """Patch requests.Session to return a mock object."""
-    with patch(
-        "http_stream_xml.entrez.requests.Session", return_value=Mock(autospec=True)
-    ) as mock:
+    with patch("http_stream_xml.entrez.requests.Session", return_value=Mock(autospec=True)) as mock:
         http_stream_xml.entrez.requests_retry_session.cache_clear()
         yield mock
         http_stream_xml.entrez.requests_retry_session.cache_clear()
@@ -28,12 +26,15 @@ def test_canonical_gene_name(mock_genes):
 
 
 def test_gene_add_locus():
-    genes = Genes(fields=[
-        GeneFields.summary,
-        GeneFields.description,
-        GeneFields.synonyms,
-    ])
+    genes = Genes(
+        fields=[
+            GeneFields.summary,
+            GeneFields.description,
+            GeneFields.synonyms,
+        ]
+    )
     assert GeneFields.locus in genes.fields
+
 
 @mock.patch.object(Genes, "get_gene_details", return_value={})
 def test_getitem_from_cache(mock_get_gene_details, mock_genes):
@@ -137,13 +138,9 @@ def test_genes_invalid_fields():
 
 def test_genes_cache_behavior():
     # Initialize with exactly the fields we're mocking
-    genes = Genes(fields=[
-        "Entrezgene_summary",
-        "Gene-ref_desc",
-        "Gene-ref_locus"
-    ])
+    genes = Genes(fields=["Entrezgene_summary", "Gene-ref_desc", "Gene-ref_locus"])
 
-    with patch.object(genes, 'get_gene_details') as mock_details:
+    with patch.object(genes, "get_gene_details") as mock_details:
         mock_details.return_value = {
             "Entrezgene_summary": "Test Gene",
             "Gene-ref_desc": "Test description",
@@ -162,17 +159,13 @@ def test_genes_cache_behavior():
 
 def test_genes_incomplete_cache_refresh():
     genes = Genes(fields=[GeneFields.summary, GeneFields.description, GeneFields.locus])
-    genes.db = {
-        "test": {
-            GeneFields.summary: "Test summary"
-        }
-    }
+    genes.db = {"test": {GeneFields.summary: "Test summary"}}
 
-    with patch.object(genes, 'get_gene_details') as mock_details:
+    with patch.object(genes, "get_gene_details") as mock_details:
         mock_details.return_value = {
             GeneFields.summary: "New summary",
             GeneFields.description: "Test description",
-            GeneFields.locus: "test"
+            GeneFields.locus: "test",
         }
 
         result = genes["test"]
@@ -190,7 +183,7 @@ def test_genes_api_key_handling():
     assert "api_key" not in url
 
 
-@patch('http_stream_xml.entrez.requests_retry_session')
+@patch("http_stream_xml.entrez.requests_retry_session")
 def test_genes_timeout_handling(mock_session):
     genes = Genes(timeout=1)
     mock_response = Mock()

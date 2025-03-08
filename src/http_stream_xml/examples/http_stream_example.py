@@ -17,7 +17,10 @@ def get_gene_info(gene_id: Union[str, int]) -> XmlStreamExtractor:
     host = "eutils.ncbi.nlm.nih.gov"
     url = f"/entrez/eutils/efetch.fcgi?db=gene&id={gene_id}&retmode=xml"
     request = requests_retry_session().get(
-        f"https://{host}{url}", stream=True, verify=False, timeout=60
+        f"https://{host}{url}",
+        stream=True,
+        verify=False,
+        timeout=60,
     )
 
     fetched_bytes = 0

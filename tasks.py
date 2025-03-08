@@ -1,8 +1,7 @@
+import subprocess
 import sys
 
-from invoke import task, Context, Collection
-import subprocess
-
+from invoke import Collection, Context, task
 
 ALLOWED_VERSION_TYPES = ["release", "bug", "feature"]
 
@@ -10,7 +9,7 @@ ALLOWED_VERSION_TYPES = ["release", "bug", "feature"]
 @task
 def version(c: Context):
     """Show the current version."""
-    with open("src/github-custom-actions/__about__.py", "r") as f:
+    with open("src/github-custom-actions/__about__.py") as f:
         version_line = f.readline()
         version_num = version_line.split('"')[1]
         print(version_num)
@@ -84,4 +83,3 @@ def pre(c):
 namespace = Collection.from_module(sys.modules[__name__])
 for name in ALLOWED_VERSION_TYPES:
     namespace.add_task(ver_task_factory(name), name=f"ver-{name}")
-

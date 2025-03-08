@@ -1,4 +1,5 @@
 """Check real eutils.ncbi.nlm.nih.gov without mocking."""
+
 import pytest
 
 from http_stream_xml.examples.http_stream_example import get_gene_info
