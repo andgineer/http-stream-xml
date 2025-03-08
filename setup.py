@@ -33,7 +33,9 @@ setuptools.setup(
     version=get_version("src/http_stream_xml/version.py"),
     author="Andrey Sorokin",
     author_email="andrey@sorokin.engineer",
-    description=("Parse XML in HTTP response on the fly, by chunks."),
+    description=(
+        "Parse XML in HTTP response on the fly, by chunks - for example NCBI (PubMed) Entrez."
+    ),
     entry_points={
         "console_scripts": [
             "garmin-daily=garmin_daily.google_sheet:main",
@@ -45,7 +47,7 @@ setuptools.setup(
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
     install_requires=requirements,
-    python_requires=">=3.9",
+    python_requires=">=3.11",
     keywords="http stream xml chunked",
     classifiers=[
         "Programming Language :: Python :: 3",
