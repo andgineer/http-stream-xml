@@ -22,11 +22,11 @@ click==8.1.8
     # via
     #   black
     #   pip-tools
-coverage==7.6.10
+coverage[toml]==7.6.10
     # via
     #   coveralls
     #   pytest-cov
-coveralls==4.0.1
+coveralls==1.8.0
     # via -r requirements.dev.in
 dill==0.3.9
     # via pylint
@@ -48,7 +48,7 @@ iniconfig==2.0.0
     # via pytest
 isort==5.13.2
     # via pylint
-jinja2==3.1.5
+jinja2==3.1.6
     # via sphinx
 markupsafe==3.0.2
     # via jinja2
@@ -70,8 +70,6 @@ packaging==24.2
     #   sphinx
 pathspec==0.12.1
     # via black
-pip==24.3.1
-    # via pip-tools
 pip-tools==7.4.1
     # via -r requirements.dev.in
 platformdirs==4.3.6
@@ -105,10 +103,7 @@ requests==2.32.3
     # via
     #   -r requirements.in
     #   coveralls
-    #   http-stream-xml
     #   sphinx
-setuptools==75.8.0
-    # via pip-tools
 snowballstemmer==2.2.0
     # via
     #   pydocstyle
