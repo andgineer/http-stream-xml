@@ -13,13 +13,6 @@ I use it to work with `NCBI (PubMed) Entrez API <https://www.ncbi.nlm.nih.gov/>`
 
 See usage example in `the blog article <https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html>`_.
 
-Installation
-------------
-
-.. code-block:: bash
-
-    pip install http-stream-xml --upgrade
-
 Documentation
 -------------
 `Documentation <https://http-stream-xml.sorokin.engineer/>`_
