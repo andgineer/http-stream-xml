@@ -4,12 +4,12 @@
 
 | Name                                                    |    Stmts |     Miss |   Cover |   Missing |
 |-------------------------------------------------------- | -------: | -------: | ------: | --------: |
-| src/http\_stream\_xml/entrez.py                         |      125 |       26 |     79% |177-184, 190-201, 209, 229, 234-235, 237-240, 252-270 |
-| src/http\_stream\_xml/examples/http\_stream\_example.py |       20 |       15 |     25% |15-32, 36-37 |
-| src/http\_stream\_xml/socket\_stream.py                 |       50 |       16 |     68% |46, 53-54, 58, 62-75 |
+| src/http\_stream\_xml/entrez.py                         |      126 |       26 |     79% |187-195, 201-212, 220, 243, 249-250, 252-256, 269-287 |
+| src/http\_stream\_xml/examples/http\_stream\_example.py |       20 |       15 |     25% |15-35, 39-40 |
+| src/http\_stream\_xml/socket\_stream.py                 |       51 |       17 |     67% |49, 56-57, 61-62, 66-79 |
 | src/http\_stream\_xml/version.py                        |        1 |        1 |      0% |         1 |
-| src/http\_stream\_xml/xml\_stream.py                    |       39 |        0 |    100% |           |
-|                                               **TOTAL** |  **235** |   **58** | **75%** |           |
+| src/http\_stream\_xml/xml\_stream.py                    |       40 |        0 |    100% |           |
+|                                               **TOTAL** |  **238** |   **59** | **75%** |           |
 
 
 ## Setup coverage badge
