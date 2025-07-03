@@ -12,17 +12,17 @@ black==25.1.0
     # via -r requirements.dev.in
 build==1.2.2.post1
     # via pip-tools
-certifi==2025.4.26
+certifi==2025.6.15
     # via requests
 cfgv==3.4.0
     # via pre-commit
 charset-normalizer==3.4.2
     # via requests
-click==8.2.0
+click==8.2.1
     # via
     #   black
     #   pip-tools
-coverage==7.8.0
+coverage==7.9.1
     # via
     #   coveralls
     #   pytest-cov
@@ -38,7 +38,7 @@ docutils==0.21.2
     # via sphinx
 filelock==3.18.0
     # via virtualenv
-identify==2.6.10
+identify==2.6.12
     # via pre-commit
 idna==3.10
     # via requests
@@ -54,7 +54,7 @@ markupsafe==3.0.2
     # via jinja2
 mccabe==0.7.0
     # via pylint
-mypy==1.15.0
+mypy==1.16.1
     # via -r requirements.dev.in
 mypy-extensions==1.1.0
     # via
@@ -69,7 +69,9 @@ packaging==25.0
     #   pytest
     #   sphinx
 pathspec==0.12.1
-    # via black
+    # via
+    #   black
+    #   mypy
 pip==25.1.1
     # via pip-tools
 pip-tools==7.4.1
@@ -80,28 +82,32 @@ platformdirs==4.3.8
     #   pylint
     #   virtualenv
 pluggy==1.6.0
-    # via pytest
+    # via
+    #   pytest
+    #   pytest-cov
 pre-commit==4.2.0
     # via -r requirements.dev.in
 pydocstyle==6.3.0
     # via -r requirements.dev.in
-pygments==2.19.1
-    # via sphinx
+pygments==2.19.2
+    # via
+    #   pytest
+    #   sphinx
 pylint==3.3.7
     # via -r requirements.dev.in
 pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-pytest==8.3.5
+pytest==8.4.1
     # via
     #   -r requirements.dev.in
     #   pytest-cov
-pytest-cov==6.1.1
+pytest-cov==6.2.1
     # via -r requirements.dev.in
 pyyaml==6.0.2
     # via pre-commit
-requests==2.32.3
+requests==2.32.4
     # via
     #   -r requirements.in
     #   coveralls
@@ -109,7 +115,7 @@ requests==2.32.3
     #   sphinx
 roman-numerals-py==3.1.0
     # via sphinx
-setuptools==80.7.1
+setuptools==80.9.0
     # via pip-tools
 snowballstemmer==3.0.1
     # via
@@ -129,11 +135,11 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-tomlkit==0.13.2
+tomlkit==0.13.3
     # via pylint
-typing-extensions==4.13.2
+typing-extensions==4.14.0
     # via mypy
-urllib3==2.4.0
+urllib3==2.5.0
     # via requests
 virtualenv==20.31.2
     # via pre-commit
