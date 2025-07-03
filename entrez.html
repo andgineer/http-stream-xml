@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Class Genes (NCBI Entrez API) &#8212; http-stream-xml 1.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=292eb321"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Class XmlStreamExtractor" href="xml.html" />
+    <link rel="prev" title="http-stream-xml" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-http_stream_xml.entrez">
+<span id="class-genes-ncbi-entrez-api"></span><h1>Class Genes (NCBI Entrez API)<a class="headerlink" href="#module-http_stream_xml.entrez" title="Link to this heading">¶</a></h1>
+<p>Get gene’s info from NCBI entrez API (PubMed).</p>
+<p><a class="reference external" href="https://www.ncbi.nlm.nih.gov/">https://www.ncbi.nlm.nih.gov/</a></p>
+<p>Downloads only necessary part of Entrez response, just enough to get all the tags
+you interested in (parameter fields, values from GeneFields).
+So we do not wait for full 2Mb entrez response but only for first 5-6Kb.</p>
+<p>The easiest way to use - global genes object pre-created globally in this module:</p>
+<blockquote>
+<div><p>entrez.genes[‘ppara’][GeneFields.summary]</p>
+</div></blockquote>
+<p>If we use genes[] it searches for gene name case-insensitive (see canonical_gene_name).
+On other hand, all methods in the class search for gene name case-sensitive.</p>
+<p>Caches results inside the class instance.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">http_stream_xml.entrez.</span></span><span class="sig-name descname"><span class="pre">Genes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_bytes_to_fetch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10240</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#http_stream_xml.entrez.Genes" title="Link to this definition">¶</a></dt>
+<dd><p>Genes class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.api_key_query_param">
+<span class="sig-name descname"><span class="pre">api_key_query_param</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.api_key_query_param" title="Link to this definition">¶</a></dt>
+<dd><p>Get query parameter for Entrez API key.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.canonical_gene_name">
+<span class="sig-name descname"><span class="pre">canonical_gene_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.canonical_gene_name" title="Link to this definition">¶</a></dt>
+<dd><p>Convert gene name to lower case.</p>
+<p>to be case-insensitive when we search for gene name in the cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.clear_cache">
+<span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.clear_cache" title="Link to this definition">¶</a></dt>
+<dd><p>Clear all previously cached genes data.</p>
+<p>so all information from this moment will be requested from NCBI server.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.get_details_url">
+<span class="sig-name descname"><span class="pre">get_details_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.get_details_url" title="Link to this definition">¶</a></dt>
+<dd><p>Get URL to get gene details by gene ID.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.get_gene_details">
+<span class="sig-name descname"><span class="pre">get_gene_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.get_gene_details" title="Link to this definition">¶</a></dt>
+<dd><p>Get gene details by gene name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.get_gene_details_by_id">
+<span class="sig-name descname"><span class="pre">get_gene_details_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.get_gene_details_by_id" title="Link to this definition">¶</a></dt>
+<dd><p>Download gene’s details from NCBI entrez API, using gene’s ID.</p>
+<p>see get_gene_id to obtain it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.get_gene_id">
+<span class="sig-name descname"><span class="pre">get_gene_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.get_gene_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get gene ID by gene name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.Genes.search_id_url">
+<span class="sig-name descname"><span class="pre">search_id_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#http_stream_xml.entrez.Genes.search_id_url" title="Link to this definition">¶</a></dt>
+<dd><p>Get URL to search for gene ID by gene name.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="http_stream_xml.entrez.GeneFields">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">http_stream_xml.entrez.</span></span><span class="sig-name descname"><span class="pre">GeneFields</span></span><a class="headerlink" href="#http_stream_xml.entrez.GeneFields" title="Link to this definition">¶</a></dt>
+<dd><p>Map gene fields to tag names in entrez’s result XML.</p>
+</dd></dl>
+
+<section id="usage-example">
+<h2>Usage example<a class="headerlink" href="#usage-example" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">http_stream_xml</span><span class="w"> </span><span class="kn">import</span> <span class="n">entrez</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">entrez</span><span class="o">.</span><span class="n">genes</span><span class="p">[</span><span class="s1">&#39;myo5b&#39;</span><span class="p">][</span><span class="n">entrez</span><span class="o">.</span><span class="n">GeneFields</span><span class="o">.</span><span class="n">description</span><span class="p">])</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">http-stream-xml</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Class Genes (NCBI Entrez API)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#http_stream_xml.entrez.Genes"><code class="docutils literal notranslate"><span class="pre">Genes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#http_stream_xml.entrez.GeneFields"><code class="docutils literal notranslate"><span class="pre">GeneFields</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xml.html">Class XmlStreamExtractor</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">http-stream-xml</a></li>
+      <li>Next: <a href="xml.html" title="next chapter">Class XmlStreamExtractor</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2023, Andrey Sorokin.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/entrez.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
