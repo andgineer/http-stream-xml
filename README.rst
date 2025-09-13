@@ -3,15 +3,14 @@ http-stream-xml
 
 |made_with_python| |build_status| |coverage| |pypi_version| |pypi_license| |readthedocs|
 
-Parse XML in HTTP response on the fly, by chunks.
+Parse XML from HTTP responses on the fly, chunk by chunk.
 
-It could be `HTTP protocol chunks <https://en.wikipedia.org/wiki/Chunked_transfer_encoding>`_
-Or just partial download of big HTTP response.
+This works with `HTTP protocol chunks <https://en.wikipedia.org/wiki/Chunked_transfer_encoding>`_
+or partial downloads of large HTTP responses.
 
+I use it to work with the `NCBI (PubMed) Entrez API <https://www.ncbi.nlm.nih.gov/>`_.
 
-I use it to work with `NCBI (PubMed) Entrez API <https://www.ncbi.nlm.nih.gov/>`_.
-
-See usage example in `the blog article <https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html>`_.
+See a usage example in `this blog article <https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html>`_.
 
 Documentation
 -------------
@@ -19,7 +18,7 @@ Documentation
 
 Scripts
 -------
-Install [invoke](https://docs.pyinvoke.org/en/stable/) preferably with pipx:
+Install `invoke <https://docs.pyinvoke.org/en/stable/>`_ preferably with pipx:
 
 .. code-block:: bash
 
