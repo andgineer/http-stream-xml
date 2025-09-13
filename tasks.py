@@ -32,6 +32,13 @@ def compile_requirements(c: Context):
     c.run("uv pip compile requirements.in --output-file=requirements.txt --upgrade")
     reqs_time = subprocess.check_output(["date", "+%s"]).decode().strip()
     c.run("uv pip compile requirements.dev.in --output-file=requirements.dev.txt --upgrade")
+
+    # Remove pip from requirements.dev.txt to avoid triggering self-modification defence in Windows
+    with open("requirements.dev.txt") as f:
+        filtered_lines = [line for line in f if not line.startswith("pip==")]
+    with open("requirements.dev.txt", "w") as f:
+        f.writelines(filtered_lines)
+
     end_time = subprocess.check_output(["date", "+%s"]).decode().strip()
     print(f"Req's compilation time: {int(reqs_time) - int(start_time)} seconds")
     print(f"Req's dev compilation time: {int(end_time) - int(reqs_time)} seconds")
