@@ -10,7 +10,9 @@ or partial downloads of large HTTP responses.
 
 I use it to work with the `NCBI (PubMed) Entrez API <https://www.ncbi.nlm.nih.gov/>`_.
 
-See a usage example in `this blog article <https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html>`_.
+See usage examples in these blog articles:
+* `XML streaming chunks load <https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html>`_
+* `Entrez gene streaming with http-stream-xml <https://sorokin.engineer/posts/en/entrez_gene_streaming_with_http_stream_xml.html>`_
 
 Documentation
 -------------
