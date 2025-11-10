@@ -58,19 +58,15 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ env.PRIMARY_PYTHON_VERSION }}
 
-
-      - name: Install uv environment
-        uses: andgineer/uv-venv@v3
-
       - name: Install dependencies
-        run: uv sync --frozen
+        run: pip install -r requirements.dev.txt
 
       - name: Build package
-        run: uv build
+        run: python -m build
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
