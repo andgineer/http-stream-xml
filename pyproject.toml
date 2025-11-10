@@ -1,0 +1,38 @@
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project]
+name = "http-stream-xml"
+description = "Parse XML in HTTP response on the fly, by chunks - for example NCBI (PubMed) Entrez."
+readme = "README.rst"
+keywords = [ "http", "stream", "xml", "chunked",]
+classifiers = [ "Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent",]
+requires-python = ">=3.11"
+dependencies = [ "requests",]
+dynamic = [ "version",]
+[[project.authors]]
+name = "Andrey Sorokin"
+email = "andrey@sorokin.engineer"
+
+[project.license]
+file = "LICENSE.txt"
+
+[project.urls]
+Homepage = "https://github.com/andgineer/http-stream-xml"
+documentation = "https://http-stream-xml.sorokin.engineer/"
+
+[tool.setuptools]
+packages = "find:"
+
+[tool.uv]
+dev-dependencies = [ "pytest", "pytest-cov", "coveralls", "sphinx", "pre-commit", "pylint", "mypy", "pydocstyle", "pip-tools", "black", "hatchling>=1.27.0",]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.manifest]
+include = [ "README.rst", "LICENSE.txt",]
+
+[tool.hatch.version]
+path = "src/http_stream_xml/version.py"

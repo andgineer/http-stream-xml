@@ -33,48 +33,53 @@ http-stream-xml is a Python library for parsing XML from HTTP responses on-the-f
 
 ## Development Commands
 
+### Environment Setup
+```bash
+# Set up or activate development environment
+source ./activate.sh
+```
+
+**IMPORTANT**: Always activate the virtual environment before running any commands. Use `source ./activate.sh` before each command.
+
 ### Testing
 ```bash
 # Run fast tests (exclude slow tests)
-inv test
-# Or directly: ./scripts/test.sh -m 'not slow'
+source ./activate.sh && inv test
+# Or directly: source ./activate.sh && ./scripts/test.sh -m 'not slow'
 
 # Run all tests including slow ones
-inv test-full
-# Or directly: ./scripts/test.sh
+source ./activate.sh && inv test-full
+# Or directly: source ./activate.sh && ./scripts/test.sh
 
 # Run specific test pattern
-./scripts/test.sh -k "pattern_or_substring"
+source ./activate.sh && ./scripts/test.sh -k "pattern_or_substring"
 
 # Test with coverage (built into test scripts)
-coverage run -m pytest
-coverage report --omit='tests/*'
+source ./activate.sh && coverage run -m pytest
+source ./activate.sh && coverage report --omit='tests/*'
 ```
 
 ### Code Quality
 ```bash
 # Run pre-commit checks (linting, formatting, type checking)
-inv pre
-# Or directly: pre-commit run --verbose --all-files
-
-# Individual quality checks are handled by pre-commit:
-# - ruff (linting and formatting)
-# - mypy (type checking)
-# - Various pre-commit hooks
+source ./activate.sh && inv pre
+# Or directly: source ./activate.sh && pre-commit run --verbose --all-files
 ```
+
+**IMPORTANT**: Always use `pre-commit run --all-files` for code quality checks. Never run ruff or mypy directly.
 
 ### Building and Dependencies
 ```bash
 # Build package
-./scripts/build.sh
-# Or directly: python setup.py bdist_wheel
+source ./activate.sh && ./scripts/build.sh
+# Or directly: source ./activate.sh && python setup.py bdist_wheel
 
 # Compile requirements
-inv compile-requirements
-# Or directly: uv pip compile requirements.in --output-file=requirements.txt --upgrade
+source ./activate.sh && inv compile-requirements
+# Or directly: source ./activate.sh && uv pip compile requirements.in --output-file=requirements.txt --upgrade
 
 # Install/upgrade dependencies
-inv reqs
+source ./activate.sh && inv reqs
 ```
 
 ### Documentation
