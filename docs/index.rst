@@ -25,15 +25,22 @@ Installation
 Usage sample
 ------------
 
-Receives data from `NCBI <https://www.ncbi.nlm.nih.gov/>`_ PubMed biomedical articles corpus
-with Entrez API.
+Implement custom loader
+~~~~~~~~~~~~~~~~~~~~~~~
 
-The code downloads only small part of Entrez response, just to extract some summary data.
+`XML streaming chunks load <https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html>`_
+
+Step by step instruction how to implement custom XML loader on Entrez gene DB example.
+
+Use Entrez PubMed loader
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+`Entrez gene streaming with http-stream-xml <https://sorokin.engineer/posts/en/entrez_gene_streaming_with_http_stream_xml.html>`_
+
+Use entrez class to receives data from `NCBI <https://www.ncbi.nlm.nih.gov/>`_ PubMed biomedical articles corpus
+with downloading only small part of Entrez response, just to extract some summary data.
+
 So you do not have to download whole huge Entrez answer to get just basic gene description.
-
-.. code-block:: bash
-
-    python -m http_stream_xml.entrez
 
 API
 ---
