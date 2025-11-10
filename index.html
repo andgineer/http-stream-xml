@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>http-stream-xml &#8212; http-stream-xml 1.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=292eb321"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Class Genes (NCBI Entrez API)" href="entrez.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="http-stream-xml">
+<h1>http-stream-xml<a class="headerlink" href="#http-stream-xml" title="Link to this heading">¶</a></h1>
+<p>Parse XML in HTTP response on the fly, by chunks.</p>
+<p>It’s essential if you want only beginning of huge document.</p>
+<p>For example if you deal with <a class="reference external" href="https://www.ncbi.nlm.nih.gov/">NCBI</a> PubMed biomedical
+articles corpus with Entrez API. The Enrez API tends to return very big documents
+(megabytes).
+And even if you need just some headers you have to download whole document just to parse it.</p>
+<p>The http-stream-xml library helps you to partially download response and parse them.</p>
+<p>It does not matter if the server use
+<a class="reference external" href="https://en.wikipedia.org/wiki/Chunked_transfer_encoding">HTTP protocol chunks</a>.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>http-stream-xml<span class="w"> </span>--upgrade
+</pre></div>
+</div>
+</section>
+<section id="usage-sample">
+<h2>Usage sample<a class="headerlink" href="#usage-sample" title="Link to this heading">¶</a></h2>
+<section id="implement-custom-loader">
+<h3>Implement custom loader<a class="headerlink" href="#implement-custom-loader" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://sorokin.engineer/posts/en/xml_streaming_chunks_load.html">XML streaming chunks load</a></p>
+<p>Step by step instruction how to implement custom XML loader on Entrez gene DB example.</p>
+</section>
+<section id="use-entrez-pubmed-loader">
+<h3>Use Entrez PubMed loader<a class="headerlink" href="#use-entrez-pubmed-loader" title="Link to this heading">¶</a></h3>
+<p><a class="reference external" href="https://sorokin.engineer/posts/en/entrez_gene_streaming_with_http_stream_xml.html">Entrez gene streaming with http-stream-xml</a></p>
+<p>Use entrez class to receives data from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/">NCBI</a> PubMed biomedical articles corpus
+with downloading only small part of Entrez response, just to extract some summary data.</p>
+<p>So you do not have to download whole huge Entrez answer to get just basic gene description.</p>
+</section>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="entrez.html">Class Genes (NCBI Entrez API)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="entrez.html#http_stream_xml.entrez.Genes"><code class="docutils literal notranslate"><span class="pre">Genes</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="entrez.html#http_stream_xml.entrez.GeneFields"><code class="docutils literal notranslate"><span class="pre">GeneFields</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="entrez.html#usage-example">Usage example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="xml.html">Class XmlStreamExtractor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="xml.html#http_stream_xml.xml_stream.XmlStreamExtractor"><code class="docutils literal notranslate"><span class="pre">XmlStreamExtractor</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="source-code">
+<h2>Source code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/andgineer/http-stream-xml">GitHub</a></p>
+</section>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">http-stream-xml</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="entrez.html">Class Genes (NCBI Entrez API)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xml.html">Class XmlStreamExtractor</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="entrez.html" title="next chapter">Class Genes (NCBI Entrez API)</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2023, Andrey Sorokin.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
