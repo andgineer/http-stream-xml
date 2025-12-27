@@ -9,7 +9,7 @@
 | src/http\_stream\_xml/socket\_stream.py                 |       51 |       17 |     67% |49, 56-57, 61-62, 66-79 |
 | src/http\_stream\_xml/version.py                        |        1 |        1 |      0% |         1 |
 | src/http\_stream\_xml/xml\_stream.py                    |       40 |        0 |    100% |           |
-|                                               **TOTAL** |  **238** |   **59** | **75%** |           |
+| **TOTAL**                                               |  **238** |   **59** | **75%** |           |
 
 
 ## Setup coverage badge
