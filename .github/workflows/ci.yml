@@ -47,18 +47,18 @@ jobs:
         python -m pytest  -m "not slow" --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=src tests/
 
     - name: Upload coverage data to coveralls.io
-      if: ${{ matrix.python-version == ${{ env.PRIMARY_PYTHON_VERSION }} && matrix.platform == ${{ env.PRIMARY_PLATFORM }} }}
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       run: coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload Coverage to Codecov
-      if: ${{ matrix.python-version == ${{ env.PRIMARY_PYTHON_VERSION }} && matrix.platform == ${{ env.PRIMARY_PLATFORM }} }}
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       uses: codecov/codecov-action@v2
 
     - name: Coverage comment
       id: coverage_comment
-      if: ${{ matrix.python-version == ${{ env.PRIMARY_PYTHON_VERSION }} && matrix.platform == ${{ env.PRIMARY_PLATFORM }} }}
+      if: ${{ matrix.python-version == env.PRIMARY_PYTHON_VERSION && matrix.platform == env.PRIMARY_PLATFORM }}
       uses: py-cov-action/python-coverage-comment-action@v3
       with:
         GITHUB_TOKEN: ${{ github.token }}
