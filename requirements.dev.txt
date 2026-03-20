@@ -4,60 +4,67 @@
     # via -r requirements.dev.in
 alabaster==1.0.0
     # via sphinx
-astroid==4.0.3
+annotated-doc==0.0.4
+    # via typer
+astroid==4.0.4
     # via pylint
-babel==2.17.0
+babel==2.18.0
     # via sphinx
-black==26.1.0
+black==26.3.1
     # via -r requirements.dev.in
 build==1.4.0
     # via pip-tools
-certifi==2026.1.4
+certifi==2026.2.25
     # via requests
 cfgv==3.5.0
     # via pre-commit
-charset-normalizer==3.4.4
+charset-normalizer==3.4.6
     # via requests
 click==8.3.1
     # via
     #   black
     #   pip-tools
-coverage==7.13.1
+    #   typer
+coverage==7.13.5
     # via
     #   coveralls
     #   pytest-cov
-coveralls==4.0.2
+coveralls==4.1.0
     # via -r requirements.dev.in
 dill==0.4.1
     # via pylint
 distlib==0.4.0
     # via virtualenv
-docopt==0.6.2
-    # via coveralls
 docutils==0.22.4
     # via sphinx
-filelock==3.20.3
-    # via virtualenv
-hatchling==1.28.0
+filelock==3.25.2
+    # via
+    #   python-discovery
+    #   virtualenv
+hatchling==1.29.0
     # via -r requirements.dev.in
-identify==2.6.16
+identify==2.6.18
     # via pre-commit
 idna==3.11
     # via requests
-imagesize==1.4.1
+imagesize==2.0.0
     # via sphinx
 iniconfig==2.3.0
     # via pytest
-isort==7.0.0
+isort==8.0.1
     # via pylint
 jinja2==3.1.6
     # via sphinx
-librt==0.7.8
+librt==0.8.1
     # via mypy
+markdown-it-py==4.0.0
+    # via rich
 markupsafe==3.0.3
     # via jinja2
 mccabe==0.7.0
     # via pylint
+mdurl==0.1.2
+    # via markdown-it-py
 mypy==1.19.1
     # via -r requirements.dev.in
 mypy-extensions==1.1.0
@@ -74,18 +81,19 @@ packaging==26.0
     #   pytest
     #   sphinx
     #   wheel
-pathspec==1.0.3
+pathspec==1.0.4
     # via
     #   black
     #   hatchling
     #   mypy
     # via pip-tools
-pip-tools==7.5.2
+pip-tools==7.5.3
     # via -r requirements.dev.in
-platformdirs==4.5.1
+platformdirs==4.9.4
     # via
     #   black
     #   pylint
+    #   python-discovery
     #   virtualenv
 pluggy==1.6.0
     # via
@@ -99,8 +107,9 @@ pydocstyle==6.3.0
 pygments==2.19.2
     # via
     #   pytest
+    #   rich
     #   sphinx
-pylint==4.0.4
+pylint==4.0.5
     # via -r requirements.dev.in
 pyproject-hooks==1.2.0
     # via
@@ -112,7 +121,9 @@ pytest==9.0.2
     #   pytest-cov
 pytest-cov==7.0.0
     # via -r requirements.dev.in
-pytokens==0.4.0
+python-discovery==1.2.0
+    # via virtualenv
+pytokens==0.4.1
     # via black
 pyyaml==6.0.3
     # via pre-commit
@@ -122,10 +133,14 @@ requests==2.32.5
     #   coveralls
     #   http-stream-xml
     #   sphinx
+rich==14.3.3
+    # via typer
 roman-numerals==4.1.0
     # via sphinx
-setuptools==80.10.1
+setuptools==82.0.1
     # via pip-tools
+shellingham==1.5.4
+    # via typer
 snowballstemmer==3.0.1
     # via
     #   pydocstyle
@@ -150,11 +165,13 @@ tomlkit==0.14.0
     # via pylint
 trove-classifiers==2026.1.14.14
     # via hatchling
+typer==0.24.1
+    # via coveralls
 typing-extensions==4.15.0
     # via mypy
 urllib3==2.6.3
     # via requests
-virtualenv==20.36.1
+virtualenv==21.2.0
     # via pre-commit
 wheel==0.46.3
     # via pip-tools
