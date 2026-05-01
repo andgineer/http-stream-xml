@@ -20,7 +20,7 @@ import logging
 from collections.abc import Collection
 from functools import lru_cache
 from time import time
-from typing import Any, Optional
+from typing import Any
 
 import requests
 import urllib3
@@ -33,7 +33,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 # Get you own Entrez key https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/
-API_KEY: Optional[str] = None
+API_KEY: str | None = None
 
 # Max fetched part of XML in case we do not found all necessary tags. So we are sure
 # if we had not found all the tags there is no sense to look more than this far.
@@ -60,7 +60,7 @@ def requests_retry_session(
     retries: int = 3,
     backoff_factor: float = 1.0,
     status_forcelist: Collection[int] = (500, 502, 504),
-    session: Optional[requests.Session] = None,
+    session: requests.Session | None = None,
 ) -> requests.Session:
     """Retry policy configuration.
 
@@ -102,10 +102,10 @@ class Genes:
 
     def __init__(
         self,
-        fields: Optional[list[str]] = None,
+        fields: list[str] | None = None,
         timeout: int = FETCH_TIMEOUT_SECONDS,
         max_bytes_to_fetch: int = MAX_BYTES_TO_FETCH,
-        api_key: Optional[str] = None,
+        api_key: str | None = None,
     ) -> None:
         """Init.
 
@@ -120,7 +120,7 @@ class Genes:
             (they said it will has some limitations in this case)
         """
         self.host: str = ENTREZ_HOST
-        self.api_key: Optional[str] = API_KEY if api_key is None else api_key
+        self.api_key: str | None = API_KEY if api_key is None else api_key
         if fields is None:
             self.fields: list[str] = GENE_FIELDS
         elif not isinstance(fields, list) or len(fields) == 0:
@@ -173,7 +173,7 @@ class Genes:
         """Get URL to get gene details by gene ID."""
         return ENTREZ_GENE_DETAILS.format(gene_id=gene_id, key_param=self.api_key_query_param())
 
-    def get_gene_id(self, gene_name: str) -> Optional[str]:
+    def get_gene_id(self, gene_name: str) -> str | None:
         """Get gene ID by gene name."""
         url = self.search_id_url(gene_name)
         response = requests_retry_session().get(
@@ -182,16 +182,17 @@ class Genes:
             timeout=self.timeout,
         )
         try:
-            resp = response.json()
-            resp = resp["esearchresult"]
+            raw_resp = response.json()
         except ValueError:
             log.error(
                 f'NCBI.Entrez not JSON response for gene "{gene_name}" '
                 f"ID request:\n{response.text}",
             )
             return None
+        try:
+            resp = raw_resp["esearchresult"]
         except KeyError:
-            log.error(f"NCBI.Entrez response do not contains search result:\n{resp}")
+            log.error(f"NCBI.Entrez response do not contains search result:\n{raw_resp}")
             return None
         if "idlist" not in resp or not resp["idlist"]:
             log.error(f'NCBI.Entrez no gene "{gene_name}" ID in response:\n{resp}')

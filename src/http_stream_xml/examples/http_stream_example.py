@@ -4,13 +4,11 @@ Gets gene's info from NCBI entrez API (PubMed)
 https://www.ncbi.nlm.nih.gov/
 """
 
-from typing import Union
-
 from http_stream_xml.entrez import requests_retry_session
 from http_stream_xml.xml_stream import XmlStreamExtractor
 
 
-def get_gene_info(gene_id: Union[str, int]) -> XmlStreamExtractor:
+def get_gene_info(gene_id: str | int) -> XmlStreamExtractor:
     """Get gene's info from NCBI entrez API (PubMed)."""
     extractor = XmlStreamExtractor(["Gene-ref_desc", "Entrezgene_summary", "Gene-ref_syn"])
 

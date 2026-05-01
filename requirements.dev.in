@@ -19,4 +19,4 @@ black
 # build & reqs management
 -e .
 hatchling
-toml
+tomli_w

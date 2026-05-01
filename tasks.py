@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from invoke import Collection, Context, task
+from invoke import Collection, Context, Task, task
 
 ALLOWED_VERSION_TYPES = ["release", "bug", "feature"]
 
@@ -16,13 +16,12 @@ def version(c: Context):
         return version_num
 
 
-def ver_task_factory(version_type: str):
-    @task
-    def ver(c: Context):
+def ver_task_factory(version_type: str) -> Task:
+    def ver(c: Context) -> None:
         """Bump the version."""
         c.run(f"./scripts/verup.sh {version_type}")
 
-    return ver
+    return Task(ver)
 
 
 @task

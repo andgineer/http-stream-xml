@@ -3,10 +3,14 @@
 Do not need to parse all a XML document if you only need tags from beginning of it.
 """
 
+# Defer annotation evaluation so `AttributesImpl[str]` (used by typeshed/pyrefly
+# but not subscriptable on the runtime class) does not raise at import time.
+from __future__ import annotations
+
 import xml.sax
 from collections.abc import Sequence
-from typing import Any, Optional
-from xml.sax.xmlreader import XMLReader
+from typing import Any
+from xml.sax.xmlreader import AttributesImpl, XMLReader
 
 
 class ExtractionCompleted(Exception):  # noqa: N818
@@ -56,10 +60,10 @@ class StreamHandler(xml.sax.handler.ContentHandler):  # noqa: N802
         self.tags_to_collect = tags_to_collect
 
         self.tags: dict[str, Any] = {}
-        self.tag_started: Optional[str] = None
+        self.tag_started: str | None = None
         super().__init__()
 
-    def startElement(self, name: str, _attrs: Any) -> None:
+    def startElement(self, name: str, attrs: AttributesImpl[str]) -> None:  # noqa: ARG002
         """Start tag handler."""
         if name in self.tags_to_collect:
             self.tag_started = name
