@@ -44,6 +44,8 @@ imagesize==2.0.0
     # via sphinx
 iniconfig==2.3.0
     # via pytest
+invoke==3.0.3
+    # via -r requirements.dev.in
 jinja2==3.1.6
     # via sphinx
 markdown-it-py==4.0.0

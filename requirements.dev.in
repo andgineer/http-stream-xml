@@ -17,4 +17,5 @@ pip-tools
 # build & reqs management
 -e .
 hatchling
+invoke
 tomli_w
