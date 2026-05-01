@@ -10,11 +10,9 @@ sphinx
 
 # lint
 pre-commit
-pylint
-mypy
+pyrefly
 pydocstyle
 pip-tools
-black
 
 # build & reqs management
 -e .

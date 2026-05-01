@@ -6,12 +6,8 @@ alabaster==1.0.0
     # via sphinx
 annotated-doc==0.0.4
     # via typer
-astroid==4.0.4
-    # via pylint
 babel==2.18.0
     # via sphinx
-black==26.3.1
-    # via -r requirements.dev.in
 build==1.5.0
     # via pip-tools
 certifi==2026.4.22
@@ -22,7 +18,6 @@ charset-normalizer==3.4.7
     # via requests
 click==8.3.3
     # via
-    #   black
     #   pip-tools
     #   typer
 coverage==7.13.5
@@ -31,8 +26,6 @@ coverage==7.13.5
     #   pytest-cov
 coveralls==4.1.0
     # via -r requirements.dev.in
-dill==0.4.1
-    # via pylint
 distlib==0.4.0
     # via virtualenv
 docutils==0.22.4
@@ -51,48 +44,30 @@ imagesize==2.0.0
     # via sphinx
 iniconfig==2.3.0
     # via pytest
-isort==8.0.1
-    # via pylint
 jinja2==3.1.6
     # via sphinx
-librt==0.9.0
-    # via mypy
 markdown-it-py==4.0.0
     # via rich
 markupsafe==3.0.3
     # via jinja2
-mccabe==0.7.0
-    # via pylint
 mdurl==0.1.2
     # via markdown-it-py
-mypy==1.20.2
-    # via -r requirements.dev.in
-mypy-extensions==1.1.0
-    # via
-    #   black
-    #   mypy
 nodeenv==1.10.0
     # via pre-commit
 packaging==26.2
     # via
-    #   black
     #   build
     #   hatchling
     #   pytest
     #   sphinx
     #   wheel
 pathspec==1.1.1
-    # via
-    #   black
-    #   hatchling
-    #   mypy
+    # via hatchling
     # via pip-tools
 pip-tools==7.5.3
     # via -r requirements.dev.in
 platformdirs==4.9.6
     # via
-    #   black
-    #   pylint
     #   python-discovery
     #   virtualenv
 pluggy==1.6.0
@@ -109,12 +84,12 @@ pygments==2.20.0
     #   pytest
     #   rich
     #   sphinx
-pylint==4.0.5
-    # via -r requirements.dev.in
 pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
+pyrefly==0.63.1
+    # via -r requirements.dev.in
 pytest==9.0.3
     # via
     #   -r requirements.dev.in
@@ -123,8 +98,6 @@ pytest-cov==7.1.0
     # via -r requirements.dev.in
 python-discovery==1.2.2
     # via virtualenv
-pytokens==0.4.1
-    # via black
 pyyaml==6.0.3
     # via pre-commit
 requests==2.33.1
@@ -161,14 +134,10 @@ sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
 tomli-w==1.2.0
     # via -r requirements.dev.in
-tomlkit==0.14.0
-    # via pylint
 trove-classifiers==2026.4.28.13
     # via hatchling
 typer==0.25.1
     # via coveralls
-typing-extensions==4.15.0
-    # via mypy
 urllib3==2.6.3
     # via requests
 virtualenv==21.3.0
