@@ -32,11 +32,11 @@ filelock==3.29.0
     # via
     #   python-discovery
     #   virtualenv
-hatchling==1.29.0
+hatchling==1.30.1
     # via -r requirements.dev.in
 identify==2.6.19
     # via pre-commit
-idna==3.16
+idna==3.17
     # via requests
 imagesize==2.0.0
     # via sphinx
@@ -134,13 +134,13 @@ sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
 tomli-w==1.2.0
     # via -r requirements.dev.in
-trove-classifiers==2026.5.22.10
+trove-classifiers==2026.6.1.19
     # via hatchling
-typer==0.26.2
+typer==0.26.5
     # via coveralls
 urllib3==2.7.0
     # via requests
-virtualenv==21.4.1
+virtualenv==21.4.2
     # via pre-commit
 wheel==0.47.0
     # via pip-tools
