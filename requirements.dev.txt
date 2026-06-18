@@ -10,7 +10,7 @@ babel==2.18.0
     # via sphinx
 build==1.5.0
     # via pip-tools
-certifi==2026.5.20
+certifi==2026.6.17
     # via requests
 cfgv==3.5.0
     # via pre-commit
@@ -24,11 +24,11 @@ coverage==7.14.1
     #   pytest-cov
 coveralls==4.1.0
     # via -r requirements.dev.in
-distlib==0.4.0
+distlib==0.4.3
     # via virtualenv
 docutils==0.22.4
     # via sphinx
-filelock==3.29.0
+filelock==3.29.4
     # via
     #   python-discovery
     #   virtualenv
@@ -36,7 +36,7 @@ hatchling==1.30.1
     # via -r requirements.dev.in
 identify==2.6.19
     # via pre-commit
-idna==3.17
+idna==3.18
     # via requests
 imagesize==2.0.0
     # via sphinx
@@ -88,15 +88,15 @@ pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-pyrefly==1.0.0
+pyrefly==1.1.0
     # via -r requirements.dev.in
-pytest==9.0.3
+pytest==9.1.0
     # via
     #   -r requirements.dev.in
     #   pytest-cov
 pytest-cov==7.1.0
     # via -r requirements.dev.in
-python-discovery==1.4.0
+python-discovery==1.4.2
     # via virtualenv
 pyyaml==6.0.3
     # via pre-commit
@@ -114,7 +114,7 @@ setuptools==82.0.1
     # via pip-tools
 shellingham==1.5.4
     # via typer
-snowballstemmer==3.1.0
+snowballstemmer==3.1.1
     # via
     #   pydocstyle
     #   sphinx
@@ -136,11 +136,11 @@ tomli-w==1.2.0
     # via -r requirements.dev.in
 trove-classifiers==2026.6.1.19
     # via hatchling
-typer==0.26.5
+typer==0.26.7
     # via coveralls
 urllib3==2.7.0
     # via requests
-virtualenv==21.4.2
+virtualenv==21.5.1
     # via pre-commit
 wheel==0.47.0
     # via pip-tools
