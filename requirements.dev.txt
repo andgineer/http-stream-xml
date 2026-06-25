@@ -16,9 +16,9 @@ cfgv==3.5.0
     # via pre-commit
 charset-normalizer==3.4.7
     # via requests
-click==8.4.1
+click==8.4.2
     # via pip-tools
-coverage==7.14.1
+coverage==7.14.3
     # via
     #   coveralls
     #   pytest-cov
@@ -88,9 +88,9 @@ pyproject-hooks==1.2.0
     # via
     #   build
     #   pip-tools
-pyrefly==1.1.0
+pyrefly==1.1.1
     # via -r requirements.dev.in
-pytest==9.1.0
+pytest==9.1.1
     # via
     #   -r requirements.dev.in
     #   pytest-cov
