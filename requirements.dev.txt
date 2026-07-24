@@ -10,15 +10,15 @@ babel==2.18.0
     # via sphinx
 build==1.5.0
     # via pip-tools
-certifi==2026.6.17
+certifi==2026.7.22
     # via requests
 cfgv==3.5.0
     # via pre-commit
-charset-normalizer==3.4.7
+charset-normalizer==3.4.9
     # via requests
 click==8.4.2
     # via pip-tools
-coverage==7.14.3
+coverage==7.15.2
     # via
     #   coveralls
     #   pytest-cov
@@ -28,11 +28,11 @@ distlib==0.4.3
     # via virtualenv
 docutils==0.22.4
     # via sphinx
-filelock==3.29.4
+filelock==3.32.0
     # via
     #   python-discovery
     #   virtualenv
-hatchling==1.30.1
+hatchling==1.31.0
     # via -r requirements.dev.in
 identify==2.6.19
     # via pre-commit
@@ -64,9 +64,9 @@ packaging==26.2
 pathspec==1.1.1
     # via hatchling
     # via pip-tools
-pip-tools==7.5.3
+pip-tools==7.6.0
     # via -r requirements.dev.in
-platformdirs==4.10.0
+platformdirs==4.11.0
     # via
     #   python-discovery
     #   virtualenv
@@ -75,7 +75,7 @@ pluggy==1.6.0
     #   hatchling
     #   pytest
     #   pytest-cov
-pre-commit==4.6.0
+pre-commit==4.6.1
     # via -r requirements.dev.in
 pydocstyle==6.3.0
     # via -r requirements.dev.in
@@ -96,7 +96,7 @@ pytest==9.1.1
     #   pytest-cov
 pytest-cov==7.1.0
     # via -r requirements.dev.in
-python-discovery==1.4.2
+python-discovery==1.5.0
     # via virtualenv
 pyyaml==6.0.3
     # via pre-commit
@@ -110,7 +110,7 @@ rich==15.0.0
     # via typer
 roman-numerals==4.1.0
     # via sphinx
-setuptools==82.0.1
+setuptools==83.0.0
     # via pip-tools
 shellingham==1.5.4
     # via typer
@@ -136,11 +136,11 @@ tomli-w==1.2.0
     # via -r requirements.dev.in
 trove-classifiers==2026.6.1.19
     # via hatchling
-typer==0.26.7
+typer==0.27.0
     # via coveralls
 urllib3==2.7.0
     # via requests
-virtualenv==21.5.1
+virtualenv==21.7.0
     # via pre-commit
 wheel==0.47.0
     # via pip-tools
