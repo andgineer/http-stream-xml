@@ -2,9 +2,9 @@
 #    uv pip compile requirements.in --output-file=requirements.txt
 certifi==2026.7.22
     # via requests
-charset-normalizer==3.4.9
+charset-normalizer==3.5.1
     # via requests
-idna==3.18
+idna==3.19
     # via requests
 requests==2.34.2
     # via -r requirements.in
